@@ -1,0 +1,20 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size:16px;
+    font-weight: 400;
+    text-decoration: none;
+    color:#333333;
+    letter-spacing: -0.02em;
+}
+
+
+body{
+    padding:0px 150px;
+}
+
+li{
+    list-style:none;
+    display: inline-block;
+}

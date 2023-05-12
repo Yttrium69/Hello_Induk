@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안뇽인덕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="../stylesheet.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+    /* #comp_banner .banner_img{
+        margin-left: -150px;
+        width:100vw;
+        height: 370px;
+        overflow: hidden;
+    }
+    #comp_banner .banner_img img{
+        width:100%;
+    } */
+    #comp_banner .slider{
+        display: flex;
+        justify-content: end;
+        margin-top:-40px;
+        position: relative;
+        width:100%;
+    }
+    #comp_banner .slider .slider_list .slider_item:not(:last-child){
+        margin-right: 2px;
+    }
+    #comp_banner .slider .slider_list .slider_item{
+        cursor: pointer;
+    }
+
+    .slide{
+        position: relative;
+        width:100vw;
+        height:370px;
+        margin-left:-150px;
+        overflow: hidden;
+    }
+    .slide_item{
+        position: relative;
+        width:100%;
+    }
+
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1s;
+        animation-name: fade;
+        animation-duration: 1s;
+    }
+
+    @-webkit-keyframes fade {
+        from {opacity: .4} 
+        to {opacity: 1}
+    }
+
+    @keyframes fade {
+        from {opacity: .4} 
+        to {opacity: 1}
+    }
+</style>
+<script src="../js/click_slide.js">
+</script>
+<body>
+    <div id="comp_main">
+        <div id="comp_banner">
+            <div class="banner_img slide">
+                <img class="fade slide_item" src="../img/banner/banner_0.png">
+                <img class="fade slide_item" src="../img/banner/banner_1.png">
+                <img class="fade slide_item" src="../img/banner/banner_2.png">
+                
+            </div>
+            <div class="slider">
+                <ul class="slider_list">
+                    <li class="slider_item" onclick="click_slide(0)"><img src="../img/icon/icon_slider_true.svg"></li>
+                    <li class="slider_item" onclick="click_slide(1)"><img src="../img/icon/icon_slider_false.svg"></li>
+                    <li class="slider_item" onclick="click_slide(2)"><img src="../img/icon/icon_slider_false.svg"></li>
+                </ul>
+            </div>
+        </div>
+        <div id="comp_main_best">
+            <p>오늘의 best</p>
+            <div class="comp_product_list">
+                <div class="comp_product_item">
+                    <div class="product_img_container">
+                        <img src=""
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

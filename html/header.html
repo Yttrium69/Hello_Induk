@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안뇽인덕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="../stylesheet.css" rel="stylesheet">
+</head>
+<style>
+    #component_top-list{
+        margin-top:23px;
+        display: flex;
+        justify-content: flex-end;
+        height:44px;
+    }
+    #component_top-list ul li:not(:last-child){
+        margin-right:23px;
+    }
+
+
+
+    #component_logo_area{
+        display: flex;
+        align-items: center;
+        height:50px;
+    }
+    #component_logo_area img{
+        width:40px;
+        height:40px;
+        margin-right: 18px;
+    }
+    #component_logo_area h1{
+        font-size:28px;
+        font-weight: 700;
+    }
+    #component_logo_area span{
+        margin-left:18px;
+        color:#B5B5B5;
+    }
+
+
+
+    #component_navigator{
+        margin-left: -150px;
+        height:56px;
+        /* padding:0px 135px; */
+        width:100vw;
+        border-bottom: 1px solid #B5B5B5;
+    }
+    #component_navigator ul{
+        padding:0px 286px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
+    }
+    #component_navigator li{
+        text-align: center;
+    }
+    #component_navigator li{
+        text-align: center;
+    }
+</style>
+<body>
+    <div id="comp_header">
+         <div id="component_top-list">
+             <ul>
+                 <li><a href="./sign-in.html">로그인</a></li>
+                 <li><a href="./sign-up.html">회원가입</a></li>
+                 <li><a href="./error.html">주문배송</a></li>
+                 <li><a href="./wish-list.html">장바구니</a></li>
+             </ul>
+         </div>
+         <div id="component_logo_area">
+             <img src="../img/icon/icon_logo.svg"/>
+             <h1 style="font-weight: 700;">안뇽인덕</h1>
+             <span>인하대학교 기념품샵</span>
+         </div>
+         <div id="component_navigator">
+             <ul>
+                 <li><a style="font-weight: 700;" href="./main.html">추천상품</a></li>
+                 <li><a style="font-weight: 700;" href="./main.html">신상품</a></li>
+                 <li><a href="./category_doll.html">인형</a></li>
+                 <li><a href="./category_jumper.html">돕바/과잠</a></li>
+                 <li><a href="./category_poster.html">포스터</a></li>
+                 <li><a href="./category_cup.html">텀블러/컵/문구류</a></li>
+                 <li><a href="./category_cap.html">모자</a></li>
+             </ul>
+         </div>
+         </div>
+</body>
+</html>
