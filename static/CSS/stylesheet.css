@@ -18,3 +18,12 @@ li{
     list-style:none;
     display: inline-block;
 }
+
+.font_B5B5B5_12{
+    color: #b5b5b5;
+    font-size:12px;
+}
+
+.font_700{
+    font-weight: 700;
+}
