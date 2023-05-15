@@ -1,8 +1,8 @@
-
 $(document).ready(function(){
     console.log("gogo")
-    $(".slide_item").hide();
-    setInterval(auto_slide, 4000);
+    // $(".slide_item").hide();
+    // setInterval(auto_slide, 4000);
+     get_json_data();
 })
 
 function click_slide(idx){
@@ -51,4 +51,22 @@ function auto_slide(){
 
     all_controller.eq(new_idx).attr("src", "../img/icon/icon_slider_true.svg");
 
+}
+
+
+function get_json_data(){
+    $.ajax({
+        type : 'GET',                                  
+        url : 'http://127.0.0.1:5000/get_main_data',
+        // data : {
+        //         item_id:text_data                       
+        // },
+        dataType : 'JSON',
+        success : function(result){
+                document.write(result);
+        },
+        error : function(xtr,status,error){
+                alert(xtr +":"+status+":"+error);
+        }
+})
 }
