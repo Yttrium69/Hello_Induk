@@ -9,133 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet_main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/main.js"></script>
 </head>
-<style>
-    /* #comp_banner .banner_img{
-        margin-left: -150px;
-        width:100vw;
-        height: 370px;
-        overflow: hidden;
-    }
-    #comp_banner .banner_img img{
-        width:100%;
-    } */
-    #comp_banner .slider{
-        display: flex;
-        justify-content: end;
-        margin-top:-40px;
-        position: relative;
-        width:100%;
-    }
-    #comp_banner .slider .slider_list .slider_item:not(:last-child){
-        margin-right: 2px;
-    }
-    #comp_banner .slider .slider_list .slider_item{
-        cursor: pointer;
-    }
-
-    .slide{
-        position: relative;
-        width:100vw;
-        height:370px;
-        margin-left:-150px;
-        overflow: hidden;
-    }
-    .slide_item{
-        position: relative;
-        width:100%;
-    }
-
-    .fade {
-        -webkit-animation-name: fade;
-        -webkit-animation-duration: 1s;
-        animation-name: fade;
-        animation-duration: 1s;
-    }
-
-    @-webkit-keyframes fade {
-        from {opacity: .4} 
-        to {opacity: 1}
-    }
-
-    @keyframes fade {
-        from {opacity: .4} 
-        to {opacity: 1}
-    }
-
-    #comp_main_best{
-        margin-top:78px;
-    }
-    #comp_main_best .div_title{
-        font-size:28px;
-    }
-    #comp_main_best .comp_product_list{
-        margin-top: 32px;
-    }
-
-    .comp_product_list{
-        display: flex;
-        justify-content: space-between;
-        width:100%;
-        overflow: hidden;
-    }
-
-    .comp_item-card{
-        width:272px;
-    }
-    .product_img_container{
-        width:300px;
-        height: 340px;
-        overflow: hidden;
-    }
-    .product_img_container img{
-        width:100%;
-    }
-    .comp_like img{
-        position: absolute;
-        width:50px;
-        height:50px;
-        margin-top: -80px;
-        /* margin-left: 200px; */
-        margin-left:20px;
-    }
-
-    .comp_like img:hover{
-        cursor: pointer;
-    }
-
-    .product_item_text{
-        padding-left: 5px;
-    }
-    .product_item_text .font_B5B5B5_12{
-        margin-top:15px;
-    }
-    .product_item_text .font_333333_16{
-        font-size:18px;
-        margin-top:5px;
-    }
-
-    .item-card_price{
-        margin-top: 10px;
-    }
-
-    .discount_text{
-        height: 26px;
-        color: #FFFFFF;
-        background-color: #00A3FF;
-        padding:0px 6px;
-        border-radius: 3px;
-        margin-right: 4px;
-    }
-
-    .slide_controller img:hover{
-        cursor: pointer;
-    }
-</style>
-<script src="../static/js/click_slide.js">
-
-</script>
 <body>
     <div id="comp_main">
         <div id="comp_banner">
@@ -143,41 +20,14 @@
                 <img class="fade slide_item" src="../static/img/banner/banner_0.png">
                 <img class="fade slide_item" src="../static/img/banner/banner_1.png">
                 <img class="fade slide_item" src="../static/img/banner/banner_2.png">
-                
             </div>
-            <div class="slider">
-                <ul class="slider_list">                    
-                    <li class="slider_item" onclick="click_slide(0)"><img src="../static/img/icon/icon_slider_true.svg"></li>
-                    <li class="slider_item" onclick="click_slide(1)"><img src="../static/img/icon/icon_slider_false.svg"></li>
-                    <li class="slider_item" onclick="click_slide(2)"><img src="../static/img/icon/icon_slider_false.svg"></li>
-                </ul>
-
-            </div>
-
         </div>
-        <div id="comp_main_best">
-            <p class="div_title">오늘의 Best</p>
-            <div class="comp_product_list">
-                <!-- <div class="comp_item-card">
-                    <div class="product_img_container">
-                        <img src="../static/img/product/A00000001.png">
-                    </div>
-                    <div class="comp_like">
-                        <img src="../static/img/icon/icon_heart_false.svg">
-                    </div>
-                    <div class="product_item_text">
-                        <p class="font_B5B5B5_12">추천 상품</p>
-                        <p class="font_333333_16">과즙 팡팡! 인덕이 젤리</p>
-                        <div class="item-card_price">
-                            <span style="display: inline-block;"class="discount_text  font_700">50%</span>
-                            <p style="display: inline-block;" class="price_next_discount  font_700">3,200원</p>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-            <div class="slide_controller">
-                <img class="prev_btn" onclick=slide_prev() src="../static/img/icon/icon_prev.svg">
-                <img class="next_btn" onclick=slide_next() src="../static/img/icon/icon_next.svg">
+        <div class="best_section">
+            <p class="section_title">오늘의 Best</p>
+            <div class="item_container"></div>
+            <div class="slider_container">
+                <img class="slider_prev" src="../static/img/icon/icon_prev.svg">
+                <img class="slider_next" src="../static/img/icon/icon_next.svg">
             </div>
         </div>
     </div>

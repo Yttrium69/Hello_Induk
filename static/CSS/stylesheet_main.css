@@ -1,0 +1,50 @@
+#comp_banner .slider{
+    display: flex;
+    justify-content: end;
+    margin-top:-40px;
+    position: relative;
+    width:100%;
+}
+#comp_banner .slider .slider_list .slider_item:not(:last-child){
+    margin-right: 2px;
+}
+#comp_banner .slider .slider_list .slider_item{
+    cursor: pointer;
+}
+
+.slide{
+    position: relative;
+    width:100vw;
+    height:370px;
+    margin-left:-150px;
+    overflow: hidden;
+}
+.slide_item{
+    position: relative;
+    width:100%;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1s;
+    animation-name: fade;
+    animation-duration: 1s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+.section_title{
+    font-size: 28px;
+}
+
+.best_section{
+    margin-top:78px;
+}

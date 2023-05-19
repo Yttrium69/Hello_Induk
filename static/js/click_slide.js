@@ -1,6 +1,7 @@
 $(document).ready(function () {
     console.log("gogo")
     get_best_json();
+    show_time_deal_item_card_container();
 
 
 })
@@ -54,7 +55,6 @@ function auto_slide() {
 }
 
 function get_best_json() {
-    let res = "GOGO";
     $.ajax({
         type: 'GET',
         url: 'http://127.0.0.1:5000/get_best_data',
@@ -63,8 +63,11 @@ function get_best_json() {
             for (let i = 0; i < result.length; i++) {
                 let json_item = result[i];
                 const new_card = create_item_card_of(json_item);
+                let tag=create_tag_on_card("Best");
+                new_card.append(tag);
                 const card_list_container = $(".comp_product_list");
                 card_list_container.append(new_card);
+
             }
         },
         error: function (xtr, status, error) {
@@ -74,6 +77,7 @@ function get_best_json() {
 }
 
 function create_item_card_of(elem) {
+    const id=elem['id'];
     const idx=elem['idx'];
     const title = elem['title'];
     let price = elem['price'];
@@ -89,12 +93,12 @@ function create_item_card_of(elem) {
         discount_span = `<span></span>`;
     }
 
-    const new_card = $(`<div class="comp_item-card">
+    const new_card = $(`<div class="comp_item-card" id="${id}">
         <div class="product_img_container">
             <img src="../static/img/product/A00000001.png">
         </div>
         <div class="comp_like">
-            <img src="../static/img/icon/icon_heart_false.svg">
+            <img onclick=when_pressed_like(this) src="../static/img/icon/icon_heart_false.svg">
         </div>
         <div class="product_item_text">
             <p class="font_B5B5B5_12">추천 상품</p>
@@ -112,6 +116,11 @@ function create_item_card_of(elem) {
         new_card.hide();
     }
     return new_card;
+}
+
+function create_tag_on_card(name_of_tag){
+    let tag = $(`<div class="tag">${name_of_tag}</div>`)
+    return tag;
 }
 
 
@@ -189,3 +198,48 @@ function slide_prev(){
     }
 }
 
+function when_pressed_like(self){
+    toggle_icon(self);
+    add_wish_list(self);
+}
+
+function toggle_icon(self){
+    if(self.src[self.src.length-6]=="s"){
+        self.src=self.src.slice(0, -9)+"true.svg";
+    }
+    else{
+        self.src=self.src.slice(0, -8)+"false.svg"
+    }
+}
+
+function add_wish_list(self){
+    let container=self.parentElement;
+
+    while(!container.classList.contains('comp_item-card')){
+        container=container.parentElement;
+    }
+    console.log(container.id);
+
+}
+
+function show_time_deal_item_card_container(){
+    $.ajax({
+        type: 'GET',
+        url: 'http://127.0.0.1:5000/get_time_deal_json',
+        dataType: 'JSON',
+        success: function (result) {
+            for (let i = 0; i < 2; i++) {
+                let json_item = result[i];
+                const new_card = create_item_card_of(json_item);
+                let tag=create_tag_on_card("마감임박");
+                new_card.append(tag);
+                const card_list_container = $(".time_deal_item_container");
+                card_list_container.append(new_card);
+
+            }
+        },
+        error: function (xtr, status, error) {
+            alert(xtr +":"+status+":"+error);
+        }
+    })
+}
