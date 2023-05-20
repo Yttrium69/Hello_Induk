@@ -12,6 +12,7 @@
     <link href="../static/CSS/stylesheet_main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/js/main.js"></script>
+    <script src="../static/js/base.js"></script>
 </head>
 <body>
     <div id="comp_main">
@@ -26,10 +27,22 @@
             <p class="section_title">오늘의 Best</p>
             <div class="item_container"></div>
             <div class="slider_container">
-                <img class="slider_prev" src="../static/img/icon/icon_prev.svg">
-                <img class="slider_next" src="../static/img/icon/icon_next.svg">
+                <img onclick=slide_prev() class="slider_icon slider_prev" src="../static/img/icon/icon_prev.svg">
+                <img onclick=slide_next() class="slider_icon slider_next" src="../static/img/icon/icon_next.svg">
             </div>
+        </div>
+        <div class="time_section">
+            <p class="section_title">시간 한정 특가</p>
+            <div class="item_container">
+                <div class="timer_container">
+                    <span  class="color_B5B5B5">남은 시간</p>
+                    <div class="left_time"></div>
+                    <p class="gogo">시간이 얼마 남지 않았어요.</br>파격적인 가격에 좋은 상품을 get하세요!</p>
+                    <button onclick="location.href='/category_item'">상품 더보기 ></button>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
-</html>
+</html> 
