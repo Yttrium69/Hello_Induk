@@ -71,7 +71,31 @@ def get_time_item_json():
 
 @app.route('/category_item', methods=['GET'])
 def category_item():
-    return render_template('category_item.html')
+    category=request.args.get("category", "X")
+    return render_template("category_item.html", category=category)
+
+@app.route('/get_category_item', methods=["GET"])
+def get_category_item():
+    category=request.args.get("category")
+    item_arr=item_json
+    res_arr=[]
+    i=0
+    for item in item_arr:
+        if(i==20):
+            break
+        if(item["id"][0]==category):
+            res_arr.append(item)
+            i+=1
+    return jsonify(res_arr)
+
+@app.route('/notice', methods=["GET"])
+def notice():
+    return render_template("notice.html")
+
+@app.route('/error', methods=['GET'])
+def error():
+    return render_template("error.html")
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)

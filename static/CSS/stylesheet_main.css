@@ -109,7 +109,8 @@
     display: grid;
     justify-items: stretch;
     width:100%;
-    column-gap: 30px;
+    column-gap: 20px;
+    row-gap: 50px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
@@ -150,7 +151,7 @@
     display: grid;
     justify-items: stretch;
     width:100%;
-    column-gap: 30px;
+    column-gap: 20px;
     grid-template-columns: 1fr 1fr 2fr;
 }
 
@@ -185,4 +186,126 @@
 .time_section button:hover{
     cursor: pointer;
     background-color: #e8f5ff;
+}
+
+.category_section{
+    margin-top:320px;
+}
+
+.tag_list{
+    margin-top:30px;
+}
+
+.tag_list li{
+    background-color: #EBEBEB;
+    padding:12px 18px;
+    box-sizing: content-box;
+    margin-right: 5px;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.tag_list li:hover{
+    cursor:pointer;
+    background-color: #c8c8c8;
+}
+
+.btn_container{
+    display: flex;
+    justify-content: center;
+}
+
+.category_section button{
+    margin-top:40px;
+    /* width:175px;
+    height: 50px; */
+    border: 1px solid #0085FF;
+    color: #0085FF;
+    background-color: white;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 50px;
+    padding:16px 44px;
+    /* box-sizing: content-box; */
+}
+
+.category_section button:hover{
+    cursor: pointer;
+    background-color: #e8f5ff;
+}
+
+.notice_section{
+    margin-top: 90px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.notice_list{
+    width:560px;
+    padding-right: 50px;;
+}
+
+.notice_list li{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    height:40px;
+    border-bottom: 1px solid #D9D9D9;
+    align-content: center;
+}
+
+.notice_list li p{
+    padding-top: 8px;
+    text-align: center;
+}
+.notice_list .notice_header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.notice_list li:first-child, .notice_list li:last-child{
+    border-bottom: 1px solid #838383;
+}
+
+.call_section{
+    width: 464px;
+}
+
+.left_right_container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.call_section .left .weight_700{
+    font-size: 28px;
+    margin-top:4px;
+}
+
+.call_section .right button{
+    width:248px;
+    height: 50px;
+    display: block;
+    background-color: #FFE70B;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border:none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.call_section .right button:last-child{
+    background-color: #EBEBEB;
+}
+.call_section .right button:first-child:hover{
+    background-color: #f1d900;
+}
+
+.call_section .right button:last-child:hover{
+    background-color:#c8c8c8
+}
+
+.slide_item{
+    cursor:pointer;
 }

@@ -1,3 +1,22 @@
+function gogo_url(url){
+    const request = new XMLHttpRequest();
+    request.open('GET', url, 'true');
+    request.send();
+}
+
+function get_json_and_do(url, callback){
+    const request = new XMLHttpRequest(); 
+    request.onreadystatechange=function(){
+        if(request.readyState==4){
+            if (request.status === 200) { // successfully
+                callback(request.response); // we're calling our method
+            }
+        }
+    }
+    request.open('GET', url, 'true');
+    request.send();
+}
+
 function toggle_hide(target){
     if(target.hasClass('show')){
         target.removeClass('show');
@@ -32,3 +51,30 @@ function get_category(id){
     else if(inspector==="E") return "모자/컵";
     else return "ERROR";
 }
+
+function get_category_code(name){
+    if(name=="인형") return "A";
+    else if(name=="돕바/과잠") return "B";
+    else if(name=="포스터") return "C";
+    else if(name=="텀블러/컵/문구류") return "D";
+    else if(name=="모자/컵") return "E";
+    else return "X";
+}
+
+function gogo_nav(){
+    const header = $("#comp_banner")[0];
+    const headerheight = 150;
+    document.addEventListener('scroll', onScroll);
+   function onScroll () {
+       const scrollposition = window.scrollY;
+     const nav = $('#component_navigator');
+     if (headerheight<=scrollposition){
+       nav.addClass('fix')
+       nav.css("top", "0px")
+     }
+     else {
+        nav.removeClass('fix')
+     }
+   } 
+    
+  }

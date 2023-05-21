@@ -2,19 +2,40 @@ $(document).ready(function () {
     get_json_and_do("/get_best_item_json", fill_best_items);
     get_json_and_do("/get_time_item_json", fill_time_items);
     write_left_time();
+    get_json_and_do(`/get_category_item?category=A`, fill_category_items);
+    gogo_nav();
+    auto_slide();
 })
 
-function get_json_and_do(url, callback){
-    const request = new XMLHttpRequest(); 
-    request.onreadystatechange=function(){
-        if(request.readyState==4){
-            if (request.status === 200) { // successfully
-                callback(request.response); // we're calling our method
-            }
+function auto_slide(){
+    setInterval(slide, 3000);
+}
+
+function slide() {
+    var all_slide = $(".slide_item");
+    var now_idx = 0;
+
+    all_slide.each(function (idx, item) {
+        $(this).hide();
+        if ($(this).hasClass("active")) {
+            now_idx = idx;
         }
+    })
+
+    let new_idx = 0;
+    if (now_idx === all_slide.length - 1) {
+        new_idx = 0;
     }
-    request.open('GET', url, 'true');
-    request.send();
+    else {
+        new_idx = now_idx + 1;
+    }
+
+    all_slide.each(function () {
+        $(this).removeClass("active");
+    })
+
+    all_slide.eq(new_idx).addClass("active");
+    all_slide.eq(new_idx).show();
 }
 
 function fill_best_items(data){
@@ -125,4 +146,40 @@ function write_left_time(){
         
         $(".left_time").html(`${hour}:${min}:${sec}`);
     }, 1000)
+}
+
+function pressed_category_tag(selected_tag){
+    const tag_list=$(".tag_list li");
+    for(let i=0;i<tag_list.length;i++){
+        tag_list[i].style.backgroundColor="#EBEBEB";
+        tag_list[i].style.color="#333333";
+        tag_list.eq(i).removeClass("checked");
+    }
+    selected_tag.style.backgroundColor="#0085FF";
+    selected_tag.style.color="white";
+    $(selected_tag).addClass("checked");
+
+    get_json_and_do(`/get_category_item?category=${selected_tag.getAttribute('name')}`,fill_category_items);
+    $(".category_section button").html(`${selected_tag.innerHTML} 상품 더보기 >`)
+}
+
+function fill_category_items(items){
+    const container=$(".category_section .item_container");
+    container.empty();
+    const json_data=JSON.parse(items)
+    for(let i=0;i<json_data.length;i++){
+        let json_item = json_data[i];
+        let item_card=new_item_card_of(json_item);
+        container.append(item_card);
+    }
+
+    const tags_of_category_section=$(".category_section .tag");
+    for(let i=0;i<tags_of_category_section.length;i++){
+        tags_of_category_section.eq(i).addClass("hide")
+    }
+}
+
+function gogo_category(){
+    const checked=$(".checked");
+    location.href=`/category_item?category=${checked.attr("name")}`;
 }

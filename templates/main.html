@@ -8,19 +8,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="../static/CSS/nav.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet_main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/js/main.js"></script>
     <script src="../static/js/base.js"></script>
 </head>
+<nav>
+    <div id="comp_header">
+        <div id="component_top-list">
+            <ul>
+                <li><a class="size_14"href="./signin">로그인</a></li>
+                <li><a class="size_14"href="./signup">회원가입</a></li>
+                <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
+            </ul>
+        </div>
+        <div id="component_navigator">
+            <ul>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
+                <li><a style="font-weight: 700;" href="./main.html">추천상품</a></li>
+                <li><a style="font-weight: 700;" href="./main.html">신상품</a></li>
+                <li><a href="./category_item?category=A">인형</a></li>
+                <li><a href="./category_item?category=B">돕바/과잠</a></li>
+                <li><a href="./category_item?category=C">포스터</a></li>
+                <li><a href="./category_item?category=D">텀블러/컵/문구류</a></li>
+                <li><a href="./category_item?category=E">모자</a></li>
+            </ul>
+        </div>
+        </div>
+</nav>
 <body>
     <div id="comp_main">
         <div id="comp_banner">
             <div class="banner_img slide">
-                <img class="fade slide_item" src="../static/img/banner/banner_0.png">
-                <img class="fade slide_item" src="../static/img/banner/banner_1.png">
-                <img class="fade slide_item" src="../static/img/banner/banner_2.png">
+                <img onclick="location.href='item_detail?id=A000011'" class="fade slide_item" src="../static/img/banner/banner_0.png">
+                <img onclick="location.href='item_detail?id=B000010'" class="fade slide_item" src="../static/img/banner/banner_1.png">
+                <img onclick="location.href='item_detail?id=A000014'" class="fade slide_item" src="../static/img/banner/banner_2.png">
             </div>
         </div>
         <div class="best_section">
@@ -41,8 +66,71 @@
                     <button onclick="location.href='/category_item'">상품 더보기 ></button>
                 </div>
             </div>
-
+        </div>
+        <div class="category_section">
+            <p class="section_title">카테고리별 상품</p>
+            <ul class="tag_list">
+                <li name="A" class="checked" style="background-color: #0085FF; color:white" onclick=pressed_category_tag(this)>인형</li>
+                <li name="B" onclick=pressed_category_tag(this)>돕바/과잠</li>
+                <li name="C" onclick=pressed_category_tag(this)>포스터</li>
+                <li name="D" onclick=pressed_category_tag(this)>텀블러/컵/문구류</li>
+                <li name="E" onclick=pressed_category_tag(this)>모자/캡</li>
+            </ul>
+            <div class="item_container"></div>
+            <div class="btn_container">
+                <button onclick=gogo_category()>인형 상품 더보기 ></button>
+            </div>
+        </div>
+        <p class="weight_700 size_28px" style="text-align: center; margin-bottom: 100px; margin-top: 200px;">이외에도 더 많은 안뇽이/비룡이 굿즈를</br>찾아보세요!</p>
+        <div class="notice_section">
+            <ul class="notice_list">
+                <li class="notice_header">
+                    <P class="weight_700">공지사항</P>
+                    <a href="/notice"><p>더보기 ></p></a>
+                </li>
+                <li>
+                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
+                    <p class="color_B5B5B5">2023.05.08</p>
+                </li>
+                <li>
+                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
+                    <p class="color_B5B5B5">2023.05.08</p>
+                </li>
+                <li>
+                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
+                    <p class="color_B5B5B5">2023.05.08</p>
+                </li>
+                <li>
+                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
+                    <p class="color_B5B5B5">2023.05.08</p>
+                </li>
+            </ul>
+            <div class="call_section">
+                <p class="weight_700">고객센터 이용안내</p>
+                <div class="left_right_container">
+                    <div class="left">
+                        <p class="color_B5B5B5">대표전화</p>
+                        <p class="weight_700">1644-7962</p>
+                    </div>
+                    <div class="right">
+                        <button onclick="location.href='error'">1:1 카카오톡 상담</button>
+                        <button onclick="location.href='error'">자주하는 질문</button>
+                    </div>
+            </div>
+            </div>
         </div>
     </div>
 </body>
+<footer>
+    <div class="introduction">
+        <p class="size_14">대표자 ㅣ 임은혜</p>
+        <p class="size_14">주소 ㅣ 인천광역시 미추홀구 용현동 168-4</p>
+        <p class="size_14">E-mail ㅣ eemune@naver.com</p>
+    </div>
+    <button onclick="location.href='/signin'">A</button>
+    <div class="copyright">
+        <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
+    </div>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
+</footer>
 </html> 
