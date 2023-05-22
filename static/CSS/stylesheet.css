@@ -48,6 +48,9 @@ li{
 .size_14{
     font-size:14px;
 }
+.size_20{
+    font-size:20px;
+}
 .size_28{
     font-size:28px;
 }
@@ -71,6 +74,9 @@ li{
     display: none;
 }
 
+.section_title{
+    font-size: 28px;
+}
 footer{
     border-top: 1px solid #D9D9D9;
     padding-top:22px;

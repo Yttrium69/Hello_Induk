@@ -10,13 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="../static/CSS/nav.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
-    <link href="../static/CSS/stylesheet_main.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet_signup.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/js/signup.js"></script>
     <script src="../static/js/base.js"></script>
 </head>
 <nav src="./main.html">
-    <!-- <div id="comp_header">
+    <div id="comp_header">
         <div id="component_top-list">
             <ul>
                 <li><a class="size_14"href="./signin">로그인</a></li>
@@ -37,18 +37,35 @@
                 <li><a href="./category_item?category=E">모자</a></li>
             </ul>
         </div>
-        </div> -->
+        </div>
 </nav>
 <body>
-    <p class="weight_700 size_28">회원가입</p>
-    <p clsss="section_title">필수정보 입력</p>
-    <form method="post">
-        <div class="input_id">
-            <span>아이디</span>
-            <input type="text" placeholder="아이디를 입력하세요." class="user_id"name="user_id">
-            <button type="button" onclick=check_id()>중복확인</button>
-        </div>
-        <button type="submit">회원가입</button>
-    </form>
+    <div class="signup">
+        <p style="text-align: center;" class="section_title weight_700 size_28">회원가입</p>
+        <p class="size_20">필수정보 입력</p>
+        <form method="post">
+            <div class="input_id">
+                <span>아이디</span>
+                <input type="text" placeholder="아이디를 입력하세요." class="user_id"name="user_id">
+                <button type="button" onclick=pressded_check_id()>중복확인</button>
+                <span class="alert hide">이미 존재하는 아이디입니다.</span>
+                <span class="valid_span hide">사용 가능한 아이디입니다.</span>
+            </div>
+            <div class="input_name">
+                <span>닉네임</span>
+                <input type="text" placeholder="닉네임을 입력하세요." class="user_name"name="user_name">
+                <button type="button" onclick=pressded_check_id()>중복확인</button>
+                <span class="alert hide">이미 존재하는 닉네임입니다.</span>
+                <span class="valid_span hide">사용 가능한 닉네임입니다.</span>
+            </div>
+            <div class="input_pw">
+                <span>비밀번호</span>
+                <input type="password" placeholder="비밀번호를 입력하세요." class="user_pw"name="user_pw">
+                <input type="password" placeholder="비밀번호를 다시 입력하세요." class="user_pw"name="user_pw">
+                <span class="alert hide">비밀번호가 일치하지 않습니다.</span>
+            </div>
+            <button class="submit" type="submit">회원가입</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,78 @@
+.section_title{
+    margin-top: 70px;
+}
+
+.size_20{
+    margin-top: 40px;
+}
+.signup{
+    width:368px;
+    display: block;
+    margin: auto;
+    margin-bottom:100px;
+}
+
+span{
+    margin-top: 20px;
+    display: block;
+}
+
+input{
+    margin-top: 5px;
+    height: 50px;
+    width: 100%;
+    background-color: #F3F3F3;
+    border: none;
+    color:#838383;
+    padding-left:8px;
+}
+
+.user_pw{
+    display: block;
+}
+
+.input_id button{
+    display: inline-block;
+}
+
+.input_id input, .input_name input{
+    width:246px;
+}
+
+.input_id button, .input_name button{
+    margin-left: 5px;
+    width:112px;
+    height: 50px;
+    border: 1px solid #0085FF;
+    color: #0085FF;
+    background-color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.input_id button:hover, .input_name button:hover{
+    cursor: pointer;
+    background-color: #e8f5ff;
+}
+
+.submit{
+    margin-top: 55px;
+    width:100%;
+    height: 50px;
+    background-color: #0085FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.input_id .alert{
+    margin-top: 5px;
+    font-size: 12px;
+    color: rgb(255, 8, 0);
+}
+
+.input_id .valid_span{
+    margin-top: 5px;
+    font-size: 12px;
+    color: rgb(0, 102, 255);
+}

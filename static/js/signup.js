@@ -1,28 +1,39 @@
-function check_id(){
-    // function change_checked_result(data){
-    //     result=JSON.parse(data);
-    //     if(result[0].sameNONO==true){
-    //         $(".user_id").attr("check_result", "true");
-    //         console.log("TRue");
-    //     }
-    //     else{
-    //         $(".user_id").attr("check_result","false");
-    //         console.log("false");
-    //     }
-    // }
-    // const id_json=[{"user_id":$(".user_id")[0].value}];
-    // console.log(id_json)
-    // post_json_and_do("/signup_same_id_NONO", id_json, change_checked_result);
-
-    const id_json=[{"user_id":$(".user_id")[0].value}];
-    fetch("/signup_same_id_NONO",{
+$(document).ready(function(){
+    $(".input_id input").on("propertychange change keyup paste input", function(){
+        $(".input_id .alert").addClass("hide");
+        $(".user_id").removeClass("valid");
+        $(".input_id .valid_span").addClass("hide");
+    });
+    $(".input_name input").on("propertychange change keyup paste input", function(){
+        $(".input_name .alert").addClass("hide");
+        $(".user_name").removeClass("valid");
+        $(".input_name .valid_span").addClass("hide");
+    });
+})
+async function is_valid_id(){
+    const id_json={"user_id":String($(".user_id")[0].value)};
+    const res=await fetch("/signup_same_id_NONO",{
         method:"POST",
         headers:{
             "Content-Type": "application/json"
         },
         body:JSON.stringify(id_json)
-    })
-    .then(function(res){
-        console.log(res);
-    })
+    });
+    res_json=await res.json();
+    return res_json.sameNONO;
+}
+
+async function pressded_check_id(){
+    const valid_flag=await is_valid_id();
+    console.log(valid_flag)
+    if(valid_flag==true){
+        await $(".user_id").addClass("valid");
+        await $(".input_id .alert").addClass("hide");
+        await $(".input_id .valid_span").removeClass("hide");
+    }
+    else{
+        await $(".user_id").removeClass("valid");
+        await $(".input_id .alert").removeClass("hide");
+        await $(".input_id .valid_span").addClass("hide");
+    }
 }
