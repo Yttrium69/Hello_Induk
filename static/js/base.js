@@ -4,6 +4,19 @@ function gogo_url(url){
     request.send();
 }
 
+function post_json_and_do(url,json, callback){
+    const request=new XMLHttpRequest();
+    request.onreadystatechange=function(){
+        if(request.readyState==4){
+            if (request.status === 200) {
+                callback(request.response);
+            }
+        }
+    }
+    request.open("POST", url, true);
+    console.log(json);
+    request.send(JSON.stringify(json));
+}
 function get_json_and_do(url, callback){
     const request = new XMLHttpRequest(); 
     request.onreadystatechange=function(){

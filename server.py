@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 from flask import request
+
 import json
 
 app=Flask(__name__)
@@ -39,6 +40,10 @@ best_json=[
 time_json=[
     {"idx":"14", "id":"A000014", "name":"처음처럼 부드러워 근본 진로", "price":50000,"discount":30,"option_id_arr":[]},
     {"idx":"8", "id":"B000008", "name":"인하대학교 한문 돕바 Black", "price":70000,"discount":10,"option_id_arr":[]},
+]
+
+user_json=[
+    {"idx":"0", "user_id":"dmswldmsgp00", "user_pw":"fkshdldk12!", "user_name":"이트륨"}
 ]
 
 def get_item_json(id):
@@ -96,6 +101,33 @@ def notice():
 def error():
     return render_template("error.html")
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if(request.method=='GET'):
+        return render_template('signup.html')
+    elif(request.method=='POST'):
+        id=request['user_id']
+        pw=request['user_pw']
+        name=request['user_name']
+        new_user={"idx":len(user_json)-1,"user_id":id, "user_pw":pw,  "user_name":name}
+        user_json.append(new_user)
+        return render_template('signup_succeed.html', name=name)
+
+@app.route('/signup_same_id_NONO', methods=['POST'])
+def signup_same_id_NONO():
+    data=json.dumps(request)
+    for target in range(user_json):
+        if(target['id']==id):
+            return jsonify([{"sameNONO":"False"}])
+    return jsonify([{"sameNONO":"True"}])
+
+@app.route('/signup_same_name_NONO', methods=['POST'])
+def signup_same_name_NONO():
+    name=request['user_name']
+    for target in range(user_json):
+        if(target['name']==name):
+            return False
+    return True
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
