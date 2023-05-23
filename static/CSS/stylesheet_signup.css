@@ -65,13 +65,13 @@ input{
     border-radius: 5px;
 }
 
-.input_id .alert{
+.input_id .alert, .input_name .alert, .input_pw .alert{
     margin-top: 5px;
     font-size: 12px;
     color: rgb(255, 8, 0);
 }
 
-.input_id .valid_span{
+.input_id .valid_span, .input_name .valid_span{
     margin-top: 5px;
     font-size: 12px;
     color: rgb(0, 102, 255);

@@ -44,8 +44,8 @@ time_json=[
 
 user_json=[
     {"idx":"0", "user_id":"dmswldmsgp00", "user_pw":"fkshdldk12!", "user_name":"이트륨"},
-    {"idx":"0", "user_id":"dmswldmfdfssgp00", "user_pw":"fkshdldk12!", "user_name":"이트륨"},
-    {"idx":"0", "user_id":"dmswldmssdfdsfgp00", "user_pw":"fkshdldk12!", "user_name":"이트륨"}
+    {"idx":"1", "user_id":"dmswldmfdfssgp00", "user_pw":"fkshdldk12!", "user_name":"이트륨"},
+    {"idx":"2", "user_id":"dmswldmssdfdsfgp00", "user_pw":"fkshdldk12!", "user_name":"이트륨"}
 ]
 
 def get_item_json(id):
@@ -123,13 +123,25 @@ def signup_same_id_NONO():
             return jsonify({"sameNONO":False})
     return({"sameNONO":True})
 
-# @app.route('/signup_same_name_NONO', methods=['POST'])
-# def signup_same_name_NONO():
-#     name=request['user_name']
-#     for target in range(user_json):
-#         if(target['name']==name):
-#             return False
-#     return True
+@app.route('/signup_same_name_NONO', methods=['POST'])
+def signup_same_name_NONO():
+    data=request.json
+    for target in user_json:
+        if(target['user_name']==data['user_name']):
+            return jsonify({"sameNONO":False})
+    return({"sameNONO":True})
+
+@app.route('/submit_signup_form', methods=['POST'])
+def submet_signup_form():
+    data=request.form
+    new_user={"idx":len(user_json), "user_name":data['user_name'], "user_id":data["user_id"], "user_pw":data["user_pw"]}
+    user_json.append(new_user)
+    return render_template("signup_succeed.html", name=user_json)
+
+@app.route('/signin', methods=['GET', 'POST'])
+def signin():
+    if(request.method=="GET"):
+        return render_template("signin.html")
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)

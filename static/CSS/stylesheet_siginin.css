@@ -1,0 +1,52 @@
+.section_title{
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.signin{
+    width:368px;
+    display: block;
+    margin: auto;
+    margin-bottom:100px;
+}
+
+span{
+    margin-top: 15px;
+    display: block;
+}
+
+input{
+    margin-top: 5px;
+    height: 50px;
+    width: 100%;
+    background-color: #F3F3F3;
+    border: none;
+    color:#838383;
+    padding-left:8px;
+}
+
+button{
+    width: 100%;
+    margin-bottom: 8px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.btn_signin{
+    margin-top: 30px;
+    background-color: #0085FF;
+    color:white;
+    border: none;
+}
+
+.btn_signup{
+    border: #0085FF solid 1px;
+    color:#0085FF;
+    background-color: white;
+    transition: 0.5s;
+}
+
+.btn_signup:hover{
+    cursor: pointer;
+    background-color: #e8f5ff;
+}

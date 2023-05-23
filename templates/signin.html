@@ -10,12 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="../static/CSS/nav.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
-    <link href="../static/CSS/stylesheet_signup.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet_siginin.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../static/js/signup.js"></script>
+    <script src="../static/js/signin.js"></script>
     <script src="../static/js/base.js"></script>
 </head>
-<nav src="./main.html">
+<nav>
     <div id="comp_header">
         <div id="component_top-list">
             <ul>
@@ -40,31 +40,19 @@
         </div>
 </nav>
 <body>
-    <div class="signup">
-        <p style="text-align: center;" class="section_title weight_700 size_28">회원가입</p>
-        <p class="size_20">필수정보 입력</p>
-        <form method="post" class="form" action="/submit_signup_form">
+    <div class="signin">
+        <p style="text-align: center;" class="section_title weight_700 size_28">로그인</p>
+        <form method="post" class="form" action="/submit_signin_form">
             <div class="input_id">
                 <span>아이디</span>
-                <input type="text" placeholder="아이디를 입력하세요." class="user_id"name="user_id">
-                <button type="button" onclick=pressded_check_id()>중복확인</button>
-                <span class="alert hide">이미 존재하는 아이디입니다.</span>
-                <span class="valid_span hide">사용 가능한 아이디입니다.</span>
-            </div>
-            <div class="input_name">
-                <span>닉네임</span>
-                <input type="text" placeholder="닉네임을 입력하세요." class="user_name"name="user_name">
-                <button type="button" onclick=pressded_check_name()>중복확인</button>
-                <span class="alert hide">이미 존재하는 닉네임입니다.</span>
-                <span class="valid_span hide">사용 가능한 닉네임입니다.</span>
+                <input type="text" placeholder="아이디를 입력하세요." name="user_id">
             </div>
             <div class="input_pw">
                 <span>비밀번호</span>
-                <input type="password" placeholder="비밀번호를 입력하세요." class="user_pw"name="user_pw">
-                <input type="password" placeholder="비밀번호를 다시 입력하세요." class="user_pw"name="user_pw">
-                <span class="alert hide">비밀번호가 일치하지 않습니다.</span>
+                <input type="password" placeholder="비밀번호를 입력하세요." name="user_pw">
             </div>
-            <button class="submit" onclick=pressed_signup() type="button">회원가입</button>
+            <button class="btn_signin" onclick=pressed_signin() type="button">로그인</button>
+            <button class="btn_signup" onclick=pressed_signup() type="button">회원가입</button>
         </form>
     </div>
 </body>
@@ -80,4 +68,5 @@
     </div>
     <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
 </footer>
+</html> 
 </html>
