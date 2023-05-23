@@ -19,8 +19,13 @@
     <div id="comp_header">
         <div id="component_top-list">
             <ul>
+                {% if session['user_id']%}
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14"href="./logout">로그아웃</a></li>
+                {% else %}
                 <li><a class="size_14"href="./signin">로그인</a></li>
                 <li><a class="size_14"href="./signup">회원가입</a></li>
+                {% endif %}
                 <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
                 <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
             </ul>

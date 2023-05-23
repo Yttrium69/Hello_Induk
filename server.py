@@ -1,10 +1,24 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, redirect, url_for
 from flask import request
+from flask import session
+from flask_sqlalchemy import SQLAlchemy
+# from models import User
 
 import json
 
 app=Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///models.db'
+db=SQLAlchemy(app)
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(32))
+    user_pw = db.Column(db.String(32))
+    user_name=db.Column(db.String(32))
+    def __init__(self, user_id, user_name, user_pw):
+        self.user_id=user_id
+        self.user_name=user_name
+        self.user_pw=user_pw
 
 item_json=[
     {"idx":"6", "id":"A000006", "name":"너무 귀여워! 핑크베어", "price":12000,"discount":50, "option_id_arr":["A000006-0"]},
@@ -57,6 +71,9 @@ def get_item_json(id):
         
 @app.route('/')
 def gogo_main():
+    # res_all=db.session.query(User).all()
+    # for _ in res_all:
+    #     print(_.user_id)
     return render_template('main.html')
 
 @app.route('/get_best_item_json', methods=["GET"])
@@ -112,7 +129,7 @@ def signup():
         pw=request['user_pw']
         name=request['user_name']
         new_user={"idx":len(user_json)-1,"user_id":id, "user_pw":pw,  "user_name":name}
-        user_json.append(new_user)
+        db.session.add(new_user)
         return render_template('signup_succeed.html', name=name)
 
 @app.route('/signup_same_id_NONO', methods=['POST'])
@@ -134,14 +151,42 @@ def signup_same_name_NONO():
 @app.route('/submit_signup_form', methods=['POST'])
 def submet_signup_form():
     data=request.form
-    new_user={"idx":len(user_json), "user_name":data['user_name'], "user_id":data["user_id"], "user_pw":data["user_pw"]}
-    user_json.append(new_user)
-    return render_template("signup_succeed.html", name=user_json)
+    new_user=User(user_id=data["user_id"], user_name=data['user_name'], user_pw=data["user_pw"])
+    # new_user={"idx":len(user_json), "user_name":data['user_name'], "user_id":data["user_id"], "user_pw":data["user_pw"]}
+    # user_json.append(new_user)
+    db.session.add(new_user)
+    db.session.commit()
+    return render_template("signup_succeed.html", name=new_user)
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     if(request.method=="GET"):
         return render_template("signin.html")
+    
+@app.route('/submit_signin_form', methods=['POST'])
+def submit_signin_form():
+    data=request.form
+    id=data['user_id']
+    pw=data['user_pw']
+
+    # id_data=session.query(User).filter(User.user_id==id, User.user_pw==pw)
+    if(db.session.query(User).filter(User.user_id==id, User.user_pw==pw).first()!=None):
+        session['user_id']=id
+        print("gogo")
+        print(db.session.query(User).filter(User.user_id==id, User.user_pw==pw).first().user_id)
+        return redirect(url_for("gogo_main"))
+
+    return redirect(url_for("signin"))
+    
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect(url_for("gogo_main"))
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host='127.0.0.1', port=5000, debug=True)
