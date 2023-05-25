@@ -47,7 +47,7 @@
 <body>
     <div class="signin">
         <p style="text-align: center;" class="section_title weight_700 size_28">로그인</p>
-        <form method="post" class="form" action="/submit_signin_form">
+        <form method="post" class="form" action="/signin">
             <div class="input_id">
                 <span>아이디</span>
                 <input type="text" placeholder="아이디를 입력하세요." class="user_id" name="user_id">
@@ -56,7 +56,7 @@
                 <span>비밀번호</span>
                 <input type="password" placeholder="비밀번호를 입력하세요." class="user_pw" name="user_pw">
             </div>
-            {{span}}
+            <span style="margin-top: 5px;font-size: 12px;color: rgb(255, 8, 0);">{{span}}</span>
             <button class="btn_signin" onclick=pressed_signin() type="button">로그인</button>
             <button class="btn_signup" onclick="location.href='/signup'" type="button">회원가입</button>
         </form>

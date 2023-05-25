@@ -40,6 +40,7 @@ function slide() {
 
 function fill_best_items(data){
     const json_data=JSON.parse(data);
+    console.log(json_data)
     for (let i = 0; i < json_data.length; i++) {
         let json_item = json_data[i];
         let item_card=new_item_card_of(json_item);
