@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안뇽인덕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="../static/CSS/nav.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet.css" rel="stylesheet">
+    <link href="../static/CSS/admin_upload_item.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/base.js"></script>
+</head>
+<nav>
+    <div id="comp_header">
+        <div id="component_top-list">
+            <ul>
+                {% if session['user_id']%}
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14"href="./logout">로그아웃</a></li>
+                {% else %}
+                <li><a class="size_14"href="./signin">로그인</a></li>
+                <li><a class="size_14"href="./signup">회원가입</a></li>
+                {% endif %}
+                <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
+            </ul>
+        </div>
+        <div id="component_navigator">
+            <ul>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
+                <li><a style="font-weight: 700;" href="./main.html">추천상품</a></li>
+                <li><a style="font-weight: 700;" href="./main.html">신상품</a></li>
+                <li><a href="./category_item?category=A">인형</a></li>
+                <li><a href="./category_item?category=B">돕바/과잠</a></li>
+                <li><a href="./category_item?category=C">포스터</a></li>
+                <li><a href="./category_item?category=D">텀블러/컵/문구류</a></li>
+                <li><a href="./category_item?category=E">모자</a></li>
+            </ul>
+        </div>
+        </div>
+</nav>
+<body>
+    <div class="admin_upload_item">
+        <p class="section_title weight_700">상품 업로드</p>
+        {%if session['user_id']!="admin"%}
+        <p class="section_title weight_700">관리자 페이지</p>
+        <p class="alert">관리자 전용 페이지입니다. 로그인 후 이용하세요.</p>
+        <div class="btn_container2">
+            <button onclick="location.href='signin'">로그인페이지로 이동</button>
+        </div>
+        {% else %}
+        <div class="admin_upload_item">
+            <div class="section">
+                <span class="div_title">카테고리</span>
+                <ul class="tag_list">
+                    <li name="A" onclick=pressed_category_tag(this)>인형</li>
+                    <li name="B" onclick=pressed_category_tag(this)>돕바/과잠</li>
+                    <li name="C" onclick=pressed_category_tag(this)>포스터</li>
+                    <li name="D" onclick=pressed_category_tag(this)>텀블러/컵/문구류</li>
+                    <li name="E" onclick=pressed_category_tag(this)>모자/캡</li>
+                </ul>
+            </div>
+            <div class="section repimg">
+                <span class="div_title">대표 이미지</span>
+                <label for="rep_img"><div class="btn_plus"><img src="../static/img/icon/icon_plus.svg"></div></label>
+                <input id="rep_img" style="display: none;" type="file" accept=".png">
+            </div>
+            <div class="section name">
+                <span class="div_title">상품명</span>
+                <input type="text" placeholder="상품명을 입력하세요." class="input"/>
+            </div>
+            <div class="section price">
+                <span class="div_title">가격</span>
+                <input type="text" placeholder="가격을 입력하세요." class="input"/>
+            </div>
+            <div class="section discount">
+                <span class="div_title">할인 적용</span>
+                <select name="discount">
+                    <option value=0>0%</option>
+                    <option value=10>10%</option>
+                    <option value=30>30%</option>
+                    <option value=50>50%</option>
+                    <option value=70>70%</option>
+                </select>
+            </div>
+            <div class="section discribtion">
+                <span class="div_title">한줄소개</span>
+                <textarea type="text" style="resize: none;" maxlength="200" placeholder="제품의 특성을 반영해 한 문장으로 소개해 주세요." class="input"></textarea>
+                <p class="text_length">0/200</p>
+            </div>
+            <div class="section capacity">
+                <span class="div_title">중량/용량</span>
+                <input type="text" placeholder="중량/용량을 기입하세요.(g, ml등)" class="input"/>
+            </div>
+            <div class="section warning">
+                <span class="div_title">주의사항</span>
+                <textarea type="text"style="resize: none;" maxlength="200" placeholder="주의사항을 입력하세요." class="input"></textarea>
+                <p class="text_length">0/200</p>
+            </div>
+            <div class="section options">
+                <span class="div_title">옵션</span>
+                <div class="option_card">
+                    <img src="../static/img/icon/icon_x.svg">
+                    <span>옵션명</span><input type="text" placeholder="상품명을 입력하세요.">
+                    <span>가격</span><input type="text" placeholder="가격을 입력하세요.">
+                </div>
+                <div class="btn_plus" style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
+            </div>
+            <div class="section detail_img">
+                <span class="div_title">상세페이지 이미지</span>
+                <div class="detail_img_container"></div>
+                <label for="detail_img"><div class="btn_plus" style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div></label>
+                <input id="detail_img" style="display: none;" type="file" multiple="multiple" accept=".png">
+            </div>
+            <button class="btn_upload">업로드</button>
+        </div>
+        {% endif %}
+    </div>
+</body>
+<footer>
+    <div class="introduction">
+        <p class="size_14">대표자 ㅣ 임은혜</p>
+        <p class="size_14">주소 ㅣ 인천광역시 미추홀구 용현동 168-4</p>
+        <p class="size_14">E-mail ㅣ eemune@naver.com</p>
+    </div>
+    <button onclick="location.href='/adminpage'">A</button>
+    <div class="copyright">
+        <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
+    </div>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
+</footer>
+</html> 
+</html>

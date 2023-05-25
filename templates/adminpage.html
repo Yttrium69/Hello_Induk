@@ -10,17 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="../static/CSS/nav.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
-    <link href="../static/CSS/stylesheet_signup.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet_adminpage.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../static/js/signup.js"></script>
+    <script src="../static/js/adminpage.js"></script>
     <script src="../static/js/base.js"></script>
 </head>
-<nav src="./main.html">
+<nav>
     <div id="comp_header">
         <div id="component_top-list">
             <ul>
-                {% if session['id']=="dmswldmsgp00" %}
-                <li><a class="size_14"href="./wishlist">{{session['id']}}님 안녕하세요!</a></li>
+                {% if session['user_id']%}
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
                 <li><a class="size_14"href="./logout">로그아웃</a></li>
                 {% else %}
                 <li><a class="size_14"href="./signin">로그인</a></li>
@@ -45,33 +45,23 @@
         </div>
 </nav>
 <body>
-    <div class="signup">
-        <p style="text-align: center;" class="section_title weight_700 size_28">회원가입</p>
-        <p class="size_20">필수정보 입력</p>
-        <form method="post" class="form" action="/signup">
-            <div class="input_id">
-                <span>아이디</span>
-                <input type="text" placeholder="아이디를 입력하세요." class="user_id"name="user_id">
-                <button type="button" onclick=pressded_check_id()>중복확인</button>
-                <span class="alert hide">이미 존재하는 아이디입니다.</span>
-                <span class="valid_span hide">사용 가능한 아이디입니다.</span>
-            </div>
-            <div class="input_name">
-                <span>닉네임</span>
-                <input type="text" placeholder="닉네임을 입력하세요." class="user_name"name="user_name">
-                <button type="button" onclick=pressded_check_name()>중복확인</button>
-                <span class="alert hide">이미 존재하는 닉네임입니다.</span>
-                <span class="valid_span hide">사용 가능한 닉네임입니다.</span>
-            </div>
-            <div class="input_pw">
-                <span>비밀번호</span>
-                <input type="password" placeholder="비밀번호를 입력하세요." class="user_pw"name="user_pw">
-                <input type="password" placeholder="비밀번호를 다시 입력하세요." class="user_pw"name="user_pw">
-                <span class="alert hide">비밀번호가 일치하지 않습니다.</span>
-            </div>
-            <button class="submit" onclick=pressed_signup() type="button">회원가입</button>
-        </form>
+    {%if session['user_id']!="admin"%}
+    <p class="section_title weight_700">관리자 페이지</p>
+    <p class="alert">관리자 전용 페이지입니다. 로그인 후 이용하세요.</p>
+    <div class="btn_container2">
+        <button onclick="location.href='signin'">로그인페이지로 이동</button>
     </div>
+    {% else %}
+    <div class="adminpage">
+        <p class="section_title weight_700">관리자 페이지</p>
+        <div class="btn_container">
+            <img src="/static/img/icon/icon_admin_soldlist.png" onclick="location.href='/admin_sold_list'">
+            <img src="/static/img/icon/icon_admin_uploaditem.png" onclick="location.href='/admin_upload_item'">
+            <img src="/static/img/icon/icon_admin_lookupDB.png" onclick="location.href='/show_db'">
+        </div>
+    </div>
+    {% endif %}
+
 </body>
 <footer>
     <div class="introduction">
@@ -85,4 +75,4 @@
     </div>
     <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
 </footer>
-</html>
+</html> 

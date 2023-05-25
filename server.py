@@ -26,17 +26,6 @@ def get_item_data(id):
 
 
 
-
-@app.route('/db')
-def show_db():
-    db_category=request.args.get("category", "User")
-    res_all=db.session.query(User).all()
-    res_str=""
-    for res in res_all:
-        res_str+=f'user_id: {res.user_id} user_name:{res.user_name} user_pw:{res.user_pw}</br>'
-        print(res_str)
-    return res_str
-
 @app.route('/db/Item')
 def show_product_db():
     res_all=db.session.query(Item).all()
@@ -120,7 +109,7 @@ def signup():
         new_user=User(user_id=id, user_name=name, user_pw=pw)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('signup_succeed'))
+        return redirect(url_for(f'signup_succeed', name=name))
     
 @app.route('/signup_succeed', methods=['GET'])
 def signup_succeed():
@@ -159,6 +148,16 @@ def signin():
 def logout():
     session.clear()
     return redirect(url_for("gogo_main"))
+
+@app.route('/adminpage', methods=['GET'])
+def adminpage():
+    return render_template("adminpage.html")
+
+@app.route('/admin_upload_item', methods=['GET'])
+def admin_upload_item():
+    if(request.method==['GET']):
+        return render_template("admin_upload_item.html")
+    return render_template("admin_upload_item.html")
 
 
 

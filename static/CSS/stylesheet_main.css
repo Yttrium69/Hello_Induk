@@ -174,9 +174,9 @@
 }
 
 .time_section button{
+    height:50px;
+    width:176px;
     margin-top:40px;
-    width:175px;
-    height: 50px;
     border: 1px solid #0085FF;
     color: #0085FF;
     background-color: white;
@@ -185,6 +185,7 @@
 }
 
 .time_section button:hover{
+
     cursor: pointer;
     background-color: #e8f5ff;
 }
@@ -227,7 +228,7 @@
     transition: 0.5s;
     margin-top: 50px;
     padding:16px 44px;
-    /* box-sizing: content-box; */
+    box-sizing: content-box;
 }
 
 .category_section button:hover{
@@ -288,6 +289,8 @@
     width:248px;
     height: 50px;
     display: block;
+    color:#333333;
+    padding:0;
     background-color: #FFE70B;
     border-radius: 5px;
     margin-bottom: 8px;

@@ -10,9 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="../static/CSS/nav.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
-    <link href="../static/CSS/stylesheet_main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../static/js/signup_secceed.js"></script>
     <script src="../static/js/base.js"></script>
 </head>
 <nav>
@@ -39,7 +37,50 @@
         </div>
         </div>
 </nav>
+<style>
+    .section_title{
+        text-align: center;
+        margin-top:70px;
+    }
+    .desc{
+        margin-top: 30px;
+        text-align: center;
+    }
+    button{
+        margin:auto;
+        height: 50px;
+        padding:0px 44px;
+    }
+    .btn_container{
+        margin-top:54px;
+        margin-bottom: 150px;
+        width:100%;
+        display:flex;
+        justify-content:center;
+    }
+</style>
 <body>
-    {{name}}님 환영합니다!
+    <div class="signup_succeed">
+        <p class="section_title weight_700">회원가입 성공!</p>
+        <p class="desc">{{name}}님, 가족이 되어 주셔서 감사합니다.
+            </br>가입하신 아이디로 로그인하고
+            </br>귀여운 굿즈를 구경하세요!</p>
+        <div class="btn_container">
+            <button onclick="location.href='/signin'">로그인 페이지로</button>
+        </div>
+    </div>
 </body>
+<footer>
+    <div class="introduction">
+        <p class="size_14">대표자 ㅣ 임은혜</p>
+        <p class="size_14">주소 ㅣ 인천광역시 미추홀구 용현동 168-4</p>
+        <p class="size_14">E-mail ㅣ eemune@naver.com</p>
+    </div>
+    <button onclick="location.href='/adminpage'">A</button>
+    <div class="copyright">
+        <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
+    </div>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
+</footer>
+</html> 
 </html>
