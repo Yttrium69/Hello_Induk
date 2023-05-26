@@ -28,3 +28,25 @@ class Item(db.Model):
         self.name=name
         self.price=price
         self.discount=discount
+
+class Option(db.Model):
+    __tablename__="Option"
+    id=Column(db.Integer, primary_key=True)
+    item_id=Column(String(7))
+    option_title=Column(String(50))
+    option_price=Column(Integer)
+
+    def __init__(self, item_id, title, price):
+        self.item_id=item_id
+        self.option_title=title
+        self.option_price=price
+
+class Post(db.Model):
+    __tablename__="post"
+    id=Column(db.Integer, primary_key=True)
+    item_id=Column(String(7))
+    title_img_src=Column(String)
+    detail_img_src=Column(String)
+    capacity=Column(String)
+    caution=Column(String(200))
+    discription=Column(String(200))

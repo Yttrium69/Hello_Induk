@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, jsonify, redirect, url_for
 from flask import request
 from flask import session
-from data_models import User, Item, db
+from data_models import User, Item, db, Option, Post
 
 now_dir=os.path.abspath(os.path.dirname(__file__))
 
@@ -32,7 +32,22 @@ def show_product_db():
     res_str=""
     for res in res_all:
         res_str+=f'{res.id}>> item_id: {res.item_id} name:{res.name} price:{res.price} discount:{res.discount}</br>'
-        print(res_str)
+    return res_str
+
+@app.route('/db/Option')
+def show_option_db():
+    res_all=db.session.query(Option).all()
+    res_str=""
+    for res in res_all:
+        res_str+=f'{res.id}>> item_id: {res.item_id} option_title:{res.option_title} option_price:{res.option_price}</br>'
+    return res_str
+
+@app.route('/db/Post')
+def show_post_db():
+    res_all=db.session.query(Post).all()
+    res_str=""
+    for res in res_all:
+        res_str+=f'{res.id}>></br>  item_id: {res.item_id}</br>  capacity:{res.capacity}</br> caution:{res.caution}</br> discription:{res.discription}</br> </br> </br> '
     return res_str
         
 @app.route('/')
@@ -153,11 +168,72 @@ def logout():
 def adminpage():
     return render_template("adminpage.html")
 
-@app.route('/admin_upload_item', methods=['GET'])
+def new_item_id_of(category):
+    id_list=db.session.query(Item).filter(Item.item_id.like(category+"%")).all()
+    last_id = id_list[-1].item_id
+    last_number = int(last_id[len(category):])  # Extract the numeric part of the last ID
+    new_number = last_number + 1
+    new_id = category + '{:06d}'.format(new_number)
+    return new_id
+
+def append_item(id, name, price, discount):
+    new_item=Item(id=id, name=name, price=price, discount=discount)
+
+    db.session.add(new_item)
+    db.session.commit()
+
+def append_option(item_id, title, price):
+    new_option=Option(item_id=item_id, title=title, price=price)
+    db.session.add(new_option)
+    db.session.commit()
+
+def append_post(item_id, capacity, caution, discription):
+    new_post=Post(item_id=item_id, capacity=capacity, caution=caution, discription=discription)
+    db.session.add(new_post)
+    db.session.commit()
+
+@app.route('/admin_upload_item', methods=['GET', 'POST'])
 def admin_upload_item():
-    if(request.method==['GET']):
+    if(request.method=='GET'):
         return render_template("admin_upload_item.html")
-    return render_template("admin_upload_item.html")
+    elif(request.method=='POST'):
+        category_selected = request.form['category_selected']
+        item_id=new_item_id_of(category_selected)
+        name = request.form['name']
+        price = request.form['price']
+        discount = request.form['discount']
+        option_name_arr=request.form.getlist('option_name')
+        option_price_arr=request.form.getlist('option_price')
+        detail_img_arr=request.files.getlist('detail_img')
+        rep_img=request.files['rep_img']
+        capacity=request.form['capacity']
+        caution=request.form['caution']
+        discription=request.form.get('discription')
+
+        print(request.files)
+
+        detail_cnt=0
+        for img in detail_img_arr:
+            img.save(f'static/img/detail/{item_id}_{str(detail_cnt)}.png')
+            detail_cnt+=1
+
+        rep_img.save(f'static/img/item/{item_id}.png')
+
+        append_item(id=item_id, name=name, price=price, discount=discount)
+
+        for i in range(len(option_name_arr)):
+            option_name=option_name_arr[i]
+            option_price=option_price_arr[i]
+
+            append_option(item_id=item_id, price=option_price, title=option_name)
+
+        append_post(item_id=item_id, capacity=capacity, caution=caution, discription=discription)
+
+        return(request.form)
+
+
+    # return redirect(url_for("gogo_main"))
+    
 
 
 

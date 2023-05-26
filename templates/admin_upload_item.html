@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,14 @@
     <title>안뇽인덕</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
     <link href="../static/CSS/nav.css" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
     <link href="../static/CSS/admin_upload_item.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/admin_upload_item.js"></script>
     <script src="../static/js/base.js"></script>
 </head>
 <nav>
@@ -19,19 +23,19 @@
         <div id="component_top-list">
             <ul>
                 {% if session['user_id']%}
-                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
-                <li><a class="size_14"href="./logout">로그아웃</a></li>
+                <li><a class="size_14" href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14" href="./logout">로그아웃</a></li>
                 {% else %}
-                <li><a class="size_14"href="./signin">로그인</a></li>
-                <li><a class="size_14"href="./signup">회원가입</a></li>
+                <li><a class="size_14" href="./signin">로그인</a></li>
+                <li><a class="size_14" href="./signup">회원가입</a></li>
                 {% endif %}
-                <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
-                <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
+                <li><a class="size_14 color_B5B5B5" href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5" href="wishlist">장바구니</a></li>
             </ul>
         </div>
         <div id="component_navigator">
             <ul>
-                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png" />
                 <li><a style="font-weight: 700;" href="./main.html">추천상품</a></li>
                 <li><a style="font-weight: 700;" href="./main.html">신상품</a></li>
                 <li><a href="./category_item?category=A">인형</a></li>
@@ -41,8 +45,9 @@
                 <li><a href="./category_item?category=E">모자</a></li>
             </ul>
         </div>
-        </div>
+    </div>
 </nav>
+
 <body>
     <div class="admin_upload_item">
         <p class="section_title weight_700">상품 업로드</p>
@@ -54,69 +59,83 @@
         </div>
         {% else %}
         <div class="admin_upload_item">
-            <div class="section">
-                <span class="div_title">카테고리</span>
-                <ul class="tag_list">
-                    <li name="A" onclick=pressed_category_tag(this)>인형</li>
-                    <li name="B" onclick=pressed_category_tag(this)>돕바/과잠</li>
-                    <li name="C" onclick=pressed_category_tag(this)>포스터</li>
-                    <li name="D" onclick=pressed_category_tag(this)>텀블러/컵/문구류</li>
-                    <li name="E" onclick=pressed_category_tag(this)>모자/캡</li>
-                </ul>
-            </div>
-            <div class="section repimg">
-                <span class="div_title">대표 이미지</span>
-                <label for="rep_img"><div class="btn_plus"><img src="../static/img/icon/icon_plus.svg"></div></label>
-                <input id="rep_img" style="display: none;" type="file" accept=".png">
-            </div>
-            <div class="section name">
-                <span class="div_title">상품명</span>
-                <input type="text" placeholder="상품명을 입력하세요." class="input"/>
-            </div>
-            <div class="section price">
-                <span class="div_title">가격</span>
-                <input type="text" placeholder="가격을 입력하세요." class="input"/>
-            </div>
-            <div class="section discount">
-                <span class="div_title">할인 적용</span>
-                <select name="discount">
-                    <option value=0>0%</option>
-                    <option value=10>10%</option>
-                    <option value=30>30%</option>
-                    <option value=50>50%</option>
-                    <option value=70>70%</option>
-                </select>
-            </div>
-            <div class="section discribtion">
-                <span class="div_title">한줄소개</span>
-                <textarea type="text" style="resize: none;" maxlength="200" placeholder="제품의 특성을 반영해 한 문장으로 소개해 주세요." class="input"></textarea>
-                <p class="text_length">0/200</p>
-            </div>
-            <div class="section capacity">
-                <span class="div_title">중량/용량</span>
-                <input type="text" placeholder="중량/용량을 기입하세요.(g, ml등)" class="input"/>
-            </div>
-            <div class="section warning">
-                <span class="div_title">주의사항</span>
-                <textarea type="text"style="resize: none;" maxlength="200" placeholder="주의사항을 입력하세요." class="input"></textarea>
-                <p class="text_length">0/200</p>
-            </div>
-            <div class="section options">
-                <span class="div_title">옵션</span>
-                <div class="option_card">
-                    <img src="../static/img/icon/icon_x.svg">
-                    <span>옵션명</span><input type="text" placeholder="상품명을 입력하세요.">
-                    <span>가격</span><input type="text" placeholder="가격을 입력하세요.">
+            <form name="new_item" method="post" action="/admin_upload_item"  enctype="multipart/form-data">
+                <div class="section">
+                    <span class="div_title">카테고리</span>
+                    <input style="display: none;" class="category_selected" name="category_selected" value="A">
+                    <ul required  class="tag_list">
+                        <li style="background-color: #0085FF; color:white" value="A" onclick=pressed_category_tag(this)>인형</li>
+                        <li value="B" onclick=pressed_category_tag(this)>돕바/과잠</li>
+                        <li value="C" onclick=pressed_category_tag(this)>포스터</li>
+                        <li value="D" onclick=pressed_category_tag(this)>텀블러/컵/문구류</li>
+                        <li value="E" onclick=pressed_category_tag(this)>모자/캡</li>
+                    </ul>
                 </div>
-                <div class="btn_plus" style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
-            </div>
-            <div class="section detail_img">
-                <span class="div_title">상세페이지 이미지</span>
-                <div class="detail_img_container"></div>
-                <label for="detail_img"><div class="btn_plus" style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div></label>
-                <input id="detail_img" style="display: none;" type="file" multiple="multiple" accept=".png">
-            </div>
-            <button class="btn_upload">업로드</button>
+                <div class="section repimg">
+                    <span class="div_title">대표 이미지</span>
+                    <label for="rep_img">
+                        <div class="rep_img_container">
+
+                        </div>
+                        <div class="btn_plus"><img src="../static/img/icon/icon_plus.svg"></div>
+                    </label>
+                    <input name="rep_img" onchange='replace_img(".repimg .rep_img_container", event)' id="rep_img" style="display: none;" type="file" accept=".png">
+                </div>
+                <div class="section name">
+                    <span class="div_title">상품명</span>
+                    <input required type="text" placeholder="상품명을 입력하세요." name="name" class="input" />
+                </div>
+                <div class="section price">
+                    <span class="div_title">가격</span>
+                    <input required type="text" placeholder="가격을 입력하세요." name="price" class="input" />
+                </div>
+                <div class="section discount">
+                    <span class="div_title">할인 적용</span>
+                    <select name="discount">
+                        <option value=0>0%</option>
+                        <option value=10>10%</option>
+                        <option value=30>30%</option>
+                        <option value=50>50%</option>
+                        <option value=70>70%</option>
+                    </select>
+                </div>
+                <div class="section description">
+                    <span class="div_title">한줄소개</span>
+                    <textarea required type="text" style="resize: none;" maxlength="200" name="description"
+                        placeholder="제품의 특성을 반영해 한 문장으로 소개해 주세요." class="input"></textarea>
+                    <output style="margin-left: 470px; font-size: 14px;" class="text_length">0/200</output>
+                </div>
+                <div class="section capacity">
+                    <span  class="div_title">중량/용량</span>
+                    <input name="capacity" required type="text" placeholder="중량/용량을 기입하세요.(g, ml등)" class="input" />
+                </div>
+                <div class="section warning">
+                    <span class="div_title">주의사항</span>
+                    <textarea name="caution" required type="text" style="resize: none;" maxlength="200" placeholder="주의사항을 입력하세요."
+                        class="input"></textarea>
+                    <output style="margin-left: 470px; font-size: 14px;" class="text_length" value>0/200</output>
+                </div>
+                <div class="section options">
+                    <span class="div_title">옵션</span>
+                    <div class="option_container">
+                        <div name="option_card" class="option_card">
+                            <img onclick="delete_parent(this)" src="../static/img/icon/icon_x.svg">
+                            <span>옵션명</span><input name="option_name" type="text" placeholder="상품명을 입력하세요.">
+                            <span>가격</span><input name="option_price" type="text" placeholder="가격을 입력하세요.">
+                        </div>
+                        <div class="btn_plus" onclick=append_option_card() style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
+                    </div>
+                </div>
+                <div class="section detail_img">
+                    <span class="div_title">상세페이지 이미지</span>
+                    <div class="detail_img_container"></div>
+                    <label for="detail_img">
+                        <div class="btn_plus"  style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
+                    </label>
+                    <input  name="detail_img" onchange="append_detail_img('.detail_img_container', event)" required id="detail_img" style="display: none;" type="file" multiple accept=".png">
+                </div>
+                <button type="submit" class="btn_upload">업로드</button>
+            </form>
         </div>
         {% endif %}
     </div>
@@ -131,7 +150,9 @@
     <div class="copyright">
         <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
     </div>
-    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'" />
 </footer>
-</html> 
+
+</html>
+
 </html>
