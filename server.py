@@ -52,7 +52,7 @@ def show_post_db():
         
 @app.route('/')
 def gogo_main():
-    return render_template('main.html')
+    return render_template('index.html')
 
 @app.route('/get_best_item_json', methods=["GET"])
 
@@ -209,8 +209,6 @@ def admin_upload_item():
         capacity=request.form['capacity']
         caution=request.form['caution']
         discription=request.form.get('discription')
-
-        print(request.files)
 
         detail_cnt=0
         for img in detail_img_arr:
