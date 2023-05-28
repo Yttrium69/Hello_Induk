@@ -35,18 +35,30 @@ class Option(db.Model):
     item_id=Column(String(7))
     option_title=Column(String(50))
     option_price=Column(Integer)
+    option_id=Column(String)
 
-    def __init__(self, item_id, title, price):
-        self.item_id=item_id
-        self.option_title=title
-        self.option_price=price
 
 class Post(db.Model):
-    __tablename__="post"
+    __tablename__="Post"
     id=Column(db.Integer, primary_key=True)
     item_id=Column(String(7))
-    title_img_src=Column(String)
-    detail_img_src=Column(String)
     capacity=Column(String)
     caution=Column(String(200))
     discription=Column(String(200))
+
+class Order(db.Model):
+    __tablename__="Order"
+    id=Column(db.Integer, primary_key=True)
+    order_id=Column(String(8))
+    status=Column(String)
+    item_id=Column(String(7))
+    time=Column(String)
+    count=Column(Integer)
+    option_list=Column(String)
+    user_id=Column(String)
+
+class Wishlist(db.Model):
+    __tablename__="Wishlist"
+    id=Column(db.Integer, primary_key=True)
+    user_id=Column(String)
+    item_id=Column(String(7))

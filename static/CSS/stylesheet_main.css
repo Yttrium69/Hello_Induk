@@ -15,10 +15,11 @@
     cursor: pointer;
 }
 
+
 .slide{
     position: relative;
     width:100vw;
-    height:370px;
+    height:350px;
     margin-left:-150px;
     overflow: hidden;
 }
@@ -130,12 +131,15 @@
 .slider_container{
     display: flex;
     justify-content: space-between;
-    width:100%;
-    position: absolute;
+    width:110%;
+    margin:auto;
+    position: relative;
     left:0px;
-    padding:0px 100px;
+    /* padding:0px 100px; */
     box-sizing: border-box;
-    top:654px;
+    /* top:654px; */
+    margin-left: -75px;
+    top: -275px ;
 }
 
 .slider_icon:hover{

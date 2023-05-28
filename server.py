@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, jsonify, redirect, url_for
 from flask import request
 from flask import session
-from data_models import User, Item, db, Option, Post
+from data_models import User, Item, db, Option, Post, Order, Wishlist
 
 now_dir=os.path.abspath(os.path.dirname(__file__))
 
@@ -17,12 +17,24 @@ with app.app_context():
     db.create_all()
 
 
+
 def get_item_data(id):
     items=db.session.query(Item).all()
     for item in items:
         if(item.item_id==id):
             return item
     return {"id":"X000000", "name":"error"}
+
+def get_post_data(id):
+    items=db.session.query(Post).all()
+    for item in items:
+        if(item.item_id==id):
+            return item
+    return {"id":"X000000", "name":"error"}
+
+def get_option_data_list(id):
+    items=db.session.query(Option).filter(Option.item_id==id).all()
+    return items
 
 
 
@@ -49,15 +61,53 @@ def show_post_db():
     for res in res_all:
         res_str+=f'{res.id}>></br>  item_id: {res.item_id}</br>  capacity:{res.capacity}</br> caution:{res.caution}</br> discription:{res.discription}</br> </br> </br> '
     return res_str
+
+@app.route('/db/User')
+def show_user_db():
+    res_all=db.session.query(User).all()
+    res_str=""
+    for res in res_all:
+        res_str+=f'{res.id}>></br>  user_id: {res.user_id}</br>  user_pw:{res.user_pw}</br> user_name:{res.user_name}</br></br></br></br> '
+    return res_str
+
+@app.route('/db/Order')
+def show_order_db():
+    res_all=db.session.query(Order).all()
+    res_str=""
+    for res in res_all:
+        res_str+=f'{res.id}>></br>  order_id: {res.order_id}</br>  status:{res.status}</br> item_id:{res.item_id}</br>time:{res.time}</br>count:{res.count}</br>option_list:{res.option_list}</br>user_id:{res.user_id}</br></br></br></br> '
+    return res_str
+
+
+@app.route('/show_db')
+def show_db():
+    db_category=request.args.get("category", "Item")
+    db_all=None
+    if(db_category=="Item"): 
+        db_all=db.session.query(Item).all()
+    elif(db_category=="User"): 
+        db_all=db.session.query(User).all()
+    elif(db_category=="Option"): 
+        db_all=db.session.query(Option).all()
+    elif(db_category=="Post"): 
+        db_all=db.session.query(Post).all()
+    elif(db_category=="Order"): 
+        db_all=db.session.query(Order).all()
+    elif(db_category=="Wishlist"): 
+        db_all=db.session.query(Wishlist).all()
+
+    # items = [item.__dict__ for item in db_all]
+
+    return render_template("show_db.html", item=db_all)
+
         
 @app.route('/')
 def gogo_main():
-    return render_template('index.html')
+    return render_template('index.html', Wishlist=Wishlist, wishlist_db=db.session.query(Wishlist))
 
 @app.route('/get_best_item_json', methods=["GET"])
-
 def get_best_item_data():
-    best_id_list=["A000006", "B000008", "A000011", "A000013", "A000009", "B000010", "D000001", "C000007", "C000013", "D000002", "D000004", "D000005"]
+    best_id_list=["D000000", "A000002", "A000003", "A000004", "A000005", "C000000", "A000006", "C000001", "C000002", "B000000", "E000000", "A000007"]
     best_item_list=[]
     for id in best_id_list:
         item=get_item_data(id)
@@ -67,7 +117,7 @@ def get_best_item_data():
 
 @app.route('/get_time_item_json', methods=["GET"])
 def get_time_item_data():
-    time_id_list=["C000013", "D000002"]
+    time_id_list=["B000000", "C000000"]
     time_item_list=[]
 
     for id in time_id_list:
@@ -77,19 +127,101 @@ def get_time_item_data():
 
     return jsonify(time_item_list)
 
-@app.route('/item_detail', methods=['GET'])
-def get_time_item_json():
-    id=request.args.get('id', "X000000")
-    if(id=="X000000"):
-        return "상품 페이지를 찾을 수 업습니다."
+@app.route('/is_in_wish_list')
+def is_in_wish_list():
+    item_id=request.args.get('item_id')
+    is_in=None
+    if(db.session.query(Wishlist).filter(Wishlist.item_id==item_id, Wishlist.user_id==session.get('user_id')).first()==None):
+        is_in=False
+    else:
+        is_in=True
     
-    item=get_item_data(id)
-    return render_template('item_detail.html', item_json=item.name)
+    return jsonify({"result":is_in})
+
+def get_category_name(category_id):
+    if(category_id=="A"):
+        return "인형"
+    elif(category_id=="B"):
+        return "돕바/과잠"
+    elif(category_id=="C"):
+        return "포스터"
+    elif(category_id=="D"):
+        return "텀블러/컵/문구류"
+    elif(category_id=="E"):
+        return "모자"
+    else:
+        return "카테고리 없음"
+    
+def new_order_id():
+    id_list=db.session.query(Order).all()
+    if(len(id_list)==0):
+        return "0000000"
+    last_id = id_list[len(id_list)-1].order_id
+
+    new_id=str('{:08d}'.format(int(last_id)+1))
+    return new_id
+
+
+@app.route('/item_detail', methods=['GET', 'POST'])
+def item_detail():
+    if(request.method=="GET"):
+        id=request.args.get('id', "X000000")
+        if(id=="X000000"):
+            return "상품 페이지를 찾을 수 업습니다."
+
+        item_data=get_item_data(id)
+        post_data=get_post_data(id)
+        option_list=get_option_data_list(id)
+
+        print(item_data.name)
+        print(post_data)
+        print(option_list)
+
+        return render_template('item_detail.html',
+            item=item_data,
+            item_id=id,
+            category_name=get_category_name(id[0]),
+            item_name=item_data.name,
+            discription=post_data.discription,
+            price=item_data.price,
+            capacity=post_data.capacity,
+            caution=post_data.caution,
+            option_list=option_list,
+            wishlist_db=db.session.query(Wishlist).filter(Wishlist.user_id==session.get('user_id')),
+            Wishlist=Wishlist)
+    
+    elif(request.method=="POST"):
+        if(session.get('user_id')==None):
+            return jsonify({"message":"로그인 후 이용하세요."})
+        
+        order_data=request.json
+        print(order_data)
+        user_id=session['user_id']
+        order_id=new_order_id()
+        time=order_data['bought_time']
+        item_id=order_data['item_id']
+        option_list=order_data['option_title_list']
+        option_str=""
+
+        for option in option_list:
+            option_str+=str(option)+"&"
+        
+        if(len(option_str)!=0):
+            option_str=option_str[:-1]
+
+        append_order_list(item_id=item_id, order_id=order_id, time=time, user_id=user_id, option_list=option_str)
+
+        return jsonify({"message":"주문이 완료되었습니다."})
 
 @app.route('/category_item', methods=['GET'])
 def category_item():
-    category=request.args.get("category", "X")
-    return render_template("category_item.html", category=category)
+    category=request.args.get("category", "추천상품")
+    items=None
+    if(category=="추천상품" or category=="신상품"):
+        items=db.session.query(Item).all()
+        return render_template("category_item.html", category=category,items=items, Wishlist=Wishlist, wishlist_db=db.session.query(Wishlist))
+    items=db.session.query(Item).filter(Item.item_id.like(category+"%")).all()
+    return render_template("category_item.html",Wishlist=Wishlist, wishlist_db=db.session.query(Wishlist),category=get_category_name(category),items=items)
 
 @app.route('/get_category_item', methods=["GET"])
 def get_category_item():
@@ -170,6 +302,9 @@ def adminpage():
 
 def new_item_id_of(category):
     id_list=db.session.query(Item).filter(Item.item_id.like(category+"%")).all()
+    print(len(id_list))
+    if(len(id_list)==0):
+        return category +"000000"
     last_id = id_list[-1].item_id
     last_number = int(last_id[len(category):])  # Extract the numeric part of the last ID
     new_number = last_number + 1
@@ -182,8 +317,8 @@ def append_item(id, name, price, discount):
     db.session.add(new_item)
     db.session.commit()
 
-def append_option(item_id, title, price):
-    new_option=Option(item_id=item_id, title=title, price=price)
+def append_option(item_id,option_id, title, price):
+    new_option=Option(item_id=item_id, option_id=option_id, option_title=title, option_price=price)
     db.session.add(new_option)
     db.session.commit()
 
@@ -191,6 +326,12 @@ def append_post(item_id, capacity, caution, discription):
     new_post=Post(item_id=item_id, capacity=capacity, caution=caution, discription=discription)
     db.session.add(new_post)
     db.session.commit()
+
+def append_order_list(order_id, item_id, time,user_id,  option_list="", status="주문 확인", count=1):
+    new_order=Order(order_id=order_id, item_id=item_id, time=time, option_list=option_list,user_id=user_id, count=count,status=status)
+    db.session.add(new_order)
+    db.session.commit()
+
 
 @app.route('/admin_upload_item', methods=['GET', 'POST'])
 def admin_upload_item():
@@ -223,20 +364,55 @@ def admin_upload_item():
             option_name=option_name_arr[i]
             option_price=option_price_arr[i]
 
-            append_option(item_id=item_id, price=option_price, title=option_name)
+            append_option(item_id=item_id,option_id=f'{item_id}_{i}', price=option_price, title=option_name)
 
         append_post(item_id=item_id, capacity=capacity, caution=caution, discription=discription)
 
-        return(request.form)
+        return redirect(url_for("admin_upload_item"))
 
 
-    # return redirect(url_for("gogo_main"))
+    return redirect(url_for("gogo_main"))
+
+@app.route('/wishlist', methods=['GET'])
+def wishlist():
+    wishes=db.session.query(Wishlist).filter(Wishlist.user_id==session.get('user_id')).all()
+    item_list=[]
+    for wish in wishes:
+        item_id=wish.item_id
+        item_list.append(db.session.query(Item).filter(Item.item_id==item_id).first())
+
+    return render_template("wishlist.html", items=item_list)
     
+@app.route('/add_wish_list', methods=['GET'])
+def add_wish_list():
+    item_id=request.args.get("item_id")
+    new_json=None
+    if(session.get('user_id') is None):
+        new_json={"result":"false", "message":"로그인 후 이용하세요."}
+        print(new_json)
+        print(jsonify(new_json))
+        return jsonify(new_json)
+    if(db.session.query(Wishlist).filter(Wishlist.user_id==session.get('user_id'), Wishlist.item_id==item_id).first()!=None):
+        return jsonify({"result":"true", "message":"이미 장바구니에 있는 상품입니다."})
+    new_wish=Wishlist(user_id=session.get('user_id'), item_id=item_id)
+    db.session.add(new_wish)
+    db.session.commit()
+    return jsonify({"result":"true", "message":"장바구니에 추가되었습니다."})
+
+@app.route('/delete_in_wishlist')
+def delete_in_wishlist():
+    item_id_to_delete=request.args.get('item_id')
+    db.session.query(Wishlist).filter(Wishlist.user_id==session.get('user_id'), Wishlist.item_id==item_id_to_delete).delete()
+    db.session.commit()
+    return jsonify({"message":"상품이 삭제되었습니다."})
 
 
+@app.route('/admin_sold_list')
+def sold_list():
+    return render_template("admin_sold_list.html", item=db.session.query(Order).all())
 
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

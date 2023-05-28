@@ -23,21 +23,21 @@
         <div id="component_top-list">
             <ul>
                 {% if session['user_id']%}
-                <li><a class="size_14" href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
-                <li><a class="size_14" href="./logout">로그아웃</a></li>
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14"href="./logout">로그아웃</a></li>
                 {% else %}
-                <li><a class="size_14" href="./signin">로그인</a></li>
-                <li><a class="size_14" href="./signup">회원가입</a></li>
+                <li><a class="size_14"href="./signin">로그인</a></li>
+                <li><a class="size_14"href="./signup">회원가입</a></li>
                 {% endif %}
-                <li><a class="size_14 color_B5B5B5" href="error">주문배송</a></li>
-                <li><a class="size_14 color_B5B5B5" href="wishlist">장바구니</a></li>
+                <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
             </ul>
         </div>
         <div id="component_navigator">
             <ul>
-                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png" />
-                <li><a style="font-weight: 700;" href="./main.html">추천상품</a></li>
-                <li><a style="font-weight: 700;" href="./main.html">신상품</a></li>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
+                <li><a style="font-weight: 700;" href="./category_item?category=추천상품">추천상품</a></li>
+                <li><a style="font-weight: 700;" href=".//category_item?category=신상품">신상품</a></li>
                 <li><a href="./category_item?category=A">인형</a></li>
                 <li><a href="./category_item?category=B">돕바/과잠</a></li>
                 <li><a href="./category_item?category=C">포스터</a></li>
@@ -45,13 +45,13 @@
                 <li><a href="./category_item?category=E">모자</a></li>
             </ul>
         </div>
-    </div>
+        </div>
 </nav>
 
 <body>
     <div class="admin_upload_item">
         <p class="section_title weight_700">상품 업로드</p>
-        {%if session['user_id']!="admin"%}
+        {%if session['user_id']!="dmswldmsgp00"%}
         <p class="section_title weight_700">관리자 페이지</p>
         <p class="alert">관리자 전용 페이지입니다. 로그인 후 이용하세요.</p>
         <div class="btn_container2">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="section description">
                     <span class="div_title">한줄소개</span>
-                    <textarea required type="text" style="resize: none;" maxlength="200" name="description"
+                    <textarea required type="text" style="resize: none;" maxlength="200" name="discription"
                         placeholder="제품의 특성을 반영해 한 문장으로 소개해 주세요." class="input"></textarea>
                     <output style="margin-left: 470px; font-size: 14px;" class="text_length">0/200</output>
                 </div>
@@ -118,13 +118,8 @@
                 <div class="section options">
                     <span class="div_title">옵션</span>
                     <div class="option_container">
-                        <div name="option_card" class="option_card">
-                            <img onclick="delete_parent(this)" src="../static/img/icon/icon_x.svg">
-                            <span>옵션명</span><input name="option_name" type="text" placeholder="상품명을 입력하세요.">
-                            <span>가격</span><input name="option_price" type="text" placeholder="가격을 입력하세요.">
-                        </div>
-                        <div class="btn_plus" onclick=append_option_card() style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
                     </div>
+                    <div class="btn_plus" onclick=append_option_card() style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
                 </div>
                 <div class="section detail_img">
                     <span class="div_title">상세페이지 이미지</span>
@@ -132,7 +127,7 @@
                     <label for="detail_img">
                         <div class="btn_plus"  style="width:100%"><img src="../static/img/icon/icon_plus.svg"></div>
                     </label>
-                    <input  name="detail_img" onchange="append_detail_img('.detail_img_container', event)" required id="detail_img" style="display: none;" type="file" multiple accept=".png">
+                    <input  name="detail_img"  onchange="append_detail_img('.detail_img_container', event)" id="detail_img" style="display: none;" type="file" multiple accept=".png">
                 </div>
                 <button type="submit" class="btn_upload">업로드</button>
             </form>

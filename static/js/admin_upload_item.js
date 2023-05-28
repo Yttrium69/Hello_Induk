@@ -1,6 +1,7 @@
 $(document).ready(function(){
     show_now_input_length(".description textarea", ".description .text_length", 200);
     show_now_input_length(".warning textarea", ".warning .text_length", 200);
+    gogo_nav();
 })
 
 function pressed_category_tag(self){
@@ -15,7 +16,7 @@ function pressed_category_tag(self){
     target.css("background-color", "#0085FF");
     target.css("color", "#FFFFFF");
 
-    $(document).ready($(".category_selected").attr("val", category));
+    $(document).ready($(".category_selected").attr("value", category));
 }
 
 function show_now_input_length(now_input_src, show_span_src, max_length){
@@ -56,7 +57,7 @@ function new_option_card(){
 function append_option_card(){
     const card_container=$(".option_container");
     const new_card=new_option_card();
-    card_container.prepend(new_card);
+    card_container.append(new_card);
 }
 
 

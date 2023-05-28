@@ -1,0 +1,173 @@
+.item_detail{
+    margin: auto;
+    width:1136px;
+}
+
+.top{
+    margin-top: 70px;
+    display: flex;
+    margin-bottom: 100px;
+}
+
+
+.rep_img{
+    width:368px;
+    height:422px;
+}
+
+.info_container{
+    margin-left:112px;
+    width:600px;
+}
+
+.item_name{
+    margin-top: 16px;
+    font-weight: 700;
+    font-size:28px;
+}
+
+.discription{
+    color:#666666;
+    margin-top: 16px;
+}
+
+.price{
+    font-weight: 700;
+    font-size: 24px;
+    margin-top:50px;
+}
+
+.info_table{
+    margin-top: 60px;
+}
+
+
+.td_title{
+    display: inline-block;
+    width:100px;
+    color: #666666;
+    align-content: start;
+}
+
+.table_content{
+    vertical-align: top;
+    display: inline-block;
+    width:480px;
+}
+
+.info{
+    padding-bottom: 30px;
+}
+
+.options{
+    height: 50px;
+    border: 1px solid #B5B5B5;
+    border-radius: 5px;
+    padding-left: 14px;
+    width:360px;
+}
+
+.options{
+    cursor: pointer;
+}
+
+
+.info_table{
+    width: 100%;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.final_price{
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 28px;
+    text-align: right;
+}
+
+.button_container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.like{
+    width:50px;
+    height: 50px;
+    margin-bottom: 0px;
+}
+
+.like:hover{
+    cursor: pointer;
+}
+
+.btn_wishlist{
+    vertical-align: start;
+    width: 260px;
+    height:50px;
+}
+
+.btn_buy{
+    width:260px;
+    height:50px;
+    background-color: #0085FF;
+    color: white;
+}
+
+.detail{
+    margin-top:200px;
+    width:100%;
+    margin-bottom: 100px;
+}
+
+.detail_img_container{
+    width: 100%;
+}
+
+.detail_img_container img{
+    width:100%;
+}
+
+.option{
+    width: 360px;
+    padding:14px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+}
+
+.btn_x{
+    margin-left:310px;
+}
+
+.btn_x:hover{
+    cursor: pointer;
+}
+
+.cnt_btn{
+    width: 110px;
+    height: 36px;
+    border: 1px solid #b5b5b5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:12px;
+}
+
+.cnt_operator{
+    width: 30px;
+    text-align: center;
+}
+
+.cnt_operator:hover{
+    cursor: pointer;
+}
+/* 
+.option_price{
+    float: right;
+    margin-top:-30px;
+} */
+
+.category{
+    color:#0085FF;
+}

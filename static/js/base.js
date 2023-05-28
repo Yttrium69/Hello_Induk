@@ -42,9 +42,21 @@ function toggle_hide(target){
 }
 
 function pressed_like(self){
+    item_id=$(self).parent().attr("name");
     toggle_icon(self);
-    add_wish_list(self);
+    add_wish_list(item_id);
 }
+
+function add_wish_list(item_id){
+    fetch(`/add_wish_list?item_id=${item_id}`, {method:"GET"})
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(result){
+        console.log(result.message)
+        alert(result.message)
+    })}
+
 
 function toggle_icon(self){
     if(self.src[self.src.length-6]=="s"){
@@ -75,7 +87,6 @@ function get_category_code(name){
 }
 
 function gogo_nav(){
-    const header = $("#comp_banner")[0];
     const headerheight = 150;
     document.addEventListener('scroll', onScroll);
    function onScroll () {
@@ -91,3 +102,13 @@ function gogo_nav(){
    } 
     
   }
+
+  function delete_parent(target){
+    target=$(target.parentElement);
+    target.remove();
+}
+
+function hide_parent(target){
+    target=$(target.parentElement);
+    target.addClass("hide");
+}

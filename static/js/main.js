@@ -38,12 +38,12 @@ function slide() {
     all_slide.eq(new_idx).show();
 }
 
-function fill_best_items(data){
+async function fill_best_items(data){
     const json_data=JSON.parse(data);
-    console.log(json_data)
+
     for (let i = 0; i < json_data.length; i++) {
         let json_item = json_data[i];
-        let item_card=new_item_card_of(json_item);
+        let item_card=await new_item_card_of(json_item);
         let container=$(".best_section .item_container");
         container.append(item_card);
     }
@@ -58,11 +58,17 @@ function fill_best_items(data){
     }
 }
 
-function new_item_card_of(json_item){
+ async function new_item_card_of(json_item){
     const id=json_item.id;
     const name=json_item.name;
     let price=json_item.price;
     const discount=json_item.discount;
+
+    const gogo= await is_in_wish_list(id);
+    let heart="true";
+    if(gogo==true) heart="true";
+    else heart="false";
+
 
     let discount_span=``;
     if(discount!=0){
@@ -73,7 +79,7 @@ function new_item_card_of(json_item){
     const new_card=$(
         `<div class="item_card" name=${id}>
             <span class="tag">Best</span>
-            <img onclick=pressed_like(this) style="display: block;" class="icon_like" src="../static/img/icon/icon_heart_false.svg">
+            <img onclick=pressed_like(this) style="display: block;" class="icon_like" src="../static/img/icon/icon_heart_${heart}.svg">
             <img onclick="location.href='/item_detail?id=${id}'" class="card_img" src="../static/img/item/${id}.png">
             <p class="color_B5B5B5 size_12">${get_category(id)}</p>
             <a href="/item_detail?id=${id}"><p class="item_title">${name}</p></a>
@@ -82,6 +88,18 @@ function new_item_card_of(json_item){
         </div>`
         );
     return new_card;
+}
+
+async function is_in_wish_list(item_id){
+    const is_in_wish_list=await fetch(`/is_in_wish_list?item_id=${item_id}`).then(
+        function(response){
+            return response.json();
+        }
+    ).then(function(json_data){
+        return json_data;
+    })
+    console.log(is_in_wish_list.result);
+    return is_in_wish_list.result
 }
 
 function slide_next(){
@@ -124,11 +142,11 @@ function slide_prev(){
     }
 }
 
-function fill_time_items(data){
+async function fill_time_items(data){
     const json_data=JSON.parse(data);
     for (let i = 0; i < 2; i++) {
         let json_item = json_data[i];
-        let item_card=new_item_card_of(json_item);
+        let item_card=await new_item_card_of(json_item);
         let container=$(".time_section .item_container");
         container.prepend(item_card);
     }
@@ -164,13 +182,13 @@ function pressed_category_tag(selected_tag){
     $(".category_section button").html(`${selected_tag.innerHTML} 상품 더보기 >`)
 }
 
-function fill_category_items(items){
+async function fill_category_items(items){
     const container=$(".category_section .item_container");
     container.empty();
     const json_data=JSON.parse(items)
     for(let i=0;i<json_data.length;i++){
         let json_item = json_data[i];
-        let item_card=new_item_card_of(json_item);
+        let item_card=await new_item_card_of(json_item);
         container.append(item_card);
     }
 

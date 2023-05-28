@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    gogo_nav();
     $(".input_id input").on("propertychange change keyup paste input", function(){
         $(".input_id .alert").addClass("hide");
         $(".user_id").removeClass("valid");

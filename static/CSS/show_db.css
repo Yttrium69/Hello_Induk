@@ -1,0 +1,48 @@
+
+.show_db{
+    width:100%;
+    text-align: center;
+    border-collapse: collapse;
+    margin-bottom: 100px;
+}
+.table_header{
+    width:100%;
+    background-color: #ebebeb;
+    /* display: flex;
+    justify-content: space-around; */
+    height: 50px;
+    align-items: center;
+}
+
+.table_body{
+    width:100%;
+    border-bottom: 1px solid #ebebeb;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.table_body td{
+    padding: 16px 30px;
+}
+
+.select_label{
+    margin-top:70px;
+}
+
+.select_db{
+    width: 330px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #b5b5b5;
+    padding-left: 10px;
+    margin-top: 16px;
+}
+
+.select_db:hover{
+    cursor: pointer;
+}
+
+.section_title{
+    margin-top: 38px;
+    margin-bottom: 16px;
+}

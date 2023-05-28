@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안뇽인덕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="../static/CSS/nav.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet.css" rel="stylesheet">
+    <link href="../static/CSS/show_db.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/base.js"></script>
+    <script src="../static/js/sold_item.js"></script>
+</head>
+<nav>
+    <div id="comp_header">
+        <div id="component_top-list">
+            <ul>
+                {% if session['user_id']%}
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14"href="./logout">로그아웃</a></li>
+                {% else %}
+                <li><a class="size_14"href="./signin">로그인</a></li>
+                <li><a class="size_14"href="./signup">회원가입</a></li>
+                {% endif %}
+                <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
+            </ul>
+        </div>
+        <div id="component_navigator">
+            <ul>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
+                <li><a style="font-weight: 700;" href="./category_item?category=추천상품">추천상품</a></li>
+                <li><a style="font-weight: 700;" href=".//category_item?category=신상품">신상품</a></li>
+                <li><a href="./category_item?category=A">인형</a></li>
+                <li><a href="./category_item?category=B">돕바/과잠</a></li>
+                <li><a href="./category_item?category=C">포스터</a></li>
+                <li><a href="./category_item?category=D">텀블러/컵/문구류</a></li>
+                <li><a href="./category_item?category=E">모자</a></li>
+            </ul>
+        </div>
+        </div>
+</nav>
+<body>
+    <p class="section_title weight_700">{{item[0].__table__.name}} Database (총 {{item|length}}개)</p>
+    <table class="show_db">
+        <tr class="table_header">
+            <td class="weight_700">index</td>
+            {%for key in item[0].__dict__%}
+                {%if loop.index!=1%}
+                    <td class="weight_700">{{key}}</td>
+                {%endif%}
+            {%endfor%}
+        </tr>        
+        {%for  obj in item%}
+            <tr  class="table_body">
+                <td>{{loop.index}}</td>
+                {%for key in obj.__dict__%}
+                    {%if loop.index!=1%}
+                        <td>{{obj.__dict__[key]}}</td>
+                    {%endif%}
+                {%endfor%}
+            </tr>
+        {%endfor%}
+    </table>    
+</body>
+<footer>
+    <div class="introduction">
+        <p class="size_14">대표자 ㅣ 임은혜</p>
+        <p class="size_14">주소 ㅣ 인천광역시 미추홀구 용현동 168-4</p>
+        <p class="size_14">E-mail ㅣ eemune@naver.com</p>
+    </div>
+    <button onclick="location.href='/adminpage'">A</button>
+    <div class="copyright">
+        <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
+    </div>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
+</footer>
+</html> 

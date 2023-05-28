@@ -9,12 +9,122 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="../static/CSS/stylesheet.css" rel="stylesheet">
-    <link href="../static/CSS/stylesheet_main.css" rel="stylesheet">
+    <link href="../static/CSS/nav.css" rel="stylesheet">
+    <link href="../static/CSS/item_detail.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../static/js/main.js"></script>
+    <script src="../static/js/base.js"></script>
+    <script src="../static/js/item_detail.js"></script>
 </head>
-<body>
-    <p>상품 상세페이지</p>
-    {{item_json}}
+<nav>
+    <div id="comp_header">
+        <div id="component_top-list">
+            <ul>
+                {% if session['user_id']%}
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14"href="./logout">로그아웃</a></li>
+                {% else %}
+                <li><a class="size_14"href="./signin">로그인</a></li>
+                <li><a class="size_14"href="./signup">회원가입</a></li>
+                {% endif %}
+                <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
+            </ul>
+        </div>
+        <div id="component_navigator">
+            <ul>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
+                <li><a style="font-weight: 700;" href="./category_item?category=추천상품">추천상품</a></li>
+                <li><a style="font-weight: 700;" href=".//category_item?category=신상품">신상품</a></li>
+                <li><a href="./category_item?category=A">인형</a></li>
+                <li><a href="./category_item?category=B">돕바/과잠</a></li>
+                <li><a href="./category_item?category=C">포스터</a></li>
+                <li><a href="./category_item?category=D">텀블러/컵/문구류</a></li>
+                <li><a href="./category_item?category=E">모자</a></li>
+            </ul>
+        </div>
+        </div>
+</nav>
+    <div data-item_id={{item_id}} class="item_detail">
+        <div class="section top">
+            <div class="rep_img_container">
+                <img class="rep_img" src="../static/img/item/{{item_id}}.png">
+            </div>
+            <div class="info_container">
+                <p><a href="./category_item?category=A" class="category">{{category_name}}</a></p>
+                <p class="item_name">{{item_name}}</p>
+                <p class="discription">{{discription}}</p>
+                <p class="price" data-price="{{(price-item.price*item.discount/100)|int}}">{{(price-item.price*item.discount/100)|int}}원</p>
+                <div class="info_table">
+                    <div class="info">
+                        <span class="td_title">배송</span>
+                        <div class="table_content">구매일로부터 2~3일 이내 발송 (편의점 택배, 로젠택배 이용)</div>
+                    </div>
+                    <div class="info">
+                        <span class="td_title">중량/용량</span>
+                        <div class="table_content">{{capacity}}</div>
+                    </div>
+                    <div class="info">
+                        <span class="td_title">주의사항</span>
+                        <div class="table_content">{{caution}}</div>
+                    </div>
+                    <div class="info">
+                        <span class="td_title">옵션/수량</span>
+                        <div class="table_content">
+                            <select onchange="append_option_card(event)" class="options">
+                                <option>옵션을 선택하세요</option>
+                                {% for option in option_list %}
+                                <option>{{option.option_title}}</option>
+                                {% endfor %}
+                            </select>
+                                {% for option in option_list %}
+                                <div class="option hide" data-option_price='{{option.option_price}}' data-option_title='{{option.option_title}}'>
+                                    <img class="btn_x"onclick="delete_option(this)" src="../static/img/icon/icon_x.svg">
+                                    <p>{{option.option_title}}</p>
+                                    <!-- <div class="cnt_btn">
+                                        <span onclick="add_option_cnt" class="cnt_operator cnt_up">-</span>
+                                        <span>1</span>
+                                        <span class="cnt_operator cnt_down">+</span>
+                                    </div> -->
+                                    <p class="weight_700 option_price">+{{option.option_price}}원</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price_container">
+                        <p class="final_price">{{(price-item.price*item.discount/100)|int}}원</p>
+                    </div>
+                    <div name={{item_id}} class="button_container">
+                        {% if wishlist_db.filter(Wishlist.user_id == session.get('user_id'), Wishlist.item_id == item.item_id).all()[0]%}
+                        <img onclick=pressed_like(this) style="display: block;" class="icon_like" src="../static/img/icon/icon_heart_true.svg">
+                        {%else%}
+                        <img onclick=pressed_like(this) style="display: block;" class="icon_like" src="../static/img/icon/icon_heart_false.svg">
+                        {%endif%}
+                        <button class="btn_wishlist">장바구니 담기</button>
+                        <button onclick="submit_buy()" class="btn_buy">주문하기</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- <div class="section detail">
+            <div class="detail_img_container">
+                <img src="../static/img/detail/{{item_id}}_0.png">
+            </div>
+        </div> -->
+    </div>
+    
 </body>
+<footer>
+    <div class="introduction">
+        <p class="size_14">대표자 ㅣ 임은혜</p>
+        <p class="size_14">주소 ㅣ 인천광역시 미추홀구 용현동 168-4</p>
+        <p class="size_14">E-mail ㅣ eemune@naver.com</p>
+    </div>
+    <button onclick="location.href='/adminpage'">A</button>
+    <div class="copyright">
+        <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
+    </div>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'"/>
+</footer>
 </html>

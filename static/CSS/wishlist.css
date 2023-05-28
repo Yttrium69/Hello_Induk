@@ -1,0 +1,60 @@
+.wishlist{
+    width:1000px;
+    margin: auto;
+}
+
+.section_title{
+    margin-left: 80px;
+    margin-top: 70px;
+}
+
+table{
+    margin:auto;
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.rep_img{
+    width:100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.rep_img:hover{
+    cursor: pointer;
+}
+
+td{
+    vertical-align: start;
+}
+
+.idx{
+    padding-right: 30px;
+}
+
+.item_name{
+    padding-left:30px;
+    width:500px;
+    height: 130px;
+}
+
+.price{
+    width:150px;
+    font-weight: 700;
+    text-align: right;
+}
+.btn_check img{
+    margin-left: 30px;
+    width:16px;
+    height: 16px;
+}
+
+.btn_check img:hover{
+    cursor: pointer;
+}
+
+tr{
+    border-bottom: 1px solid #ebebeb;
+}

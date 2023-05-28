@@ -17,8 +17,13 @@
     <div id="comp_header">
         <div id="component_top-list">
             <ul>
+                {% if session['user_id']%}
+                <li><a class="size_14"href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14"href="./logout">로그아웃</a></li>
+                {% else %}
                 <li><a class="size_14"href="./signin">로그인</a></li>
                 <li><a class="size_14"href="./signup">회원가입</a></li>
+                {% endif %}
                 <li><a class="size_14 color_B5B5B5"href="error">주문배송</a></li>
                 <li><a class="size_14 color_B5B5B5"href="wishlist">장바구니</a></li>
             </ul>
@@ -26,8 +31,8 @@
         <div id="component_navigator">
             <ul>
                 <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png"/>
-                <li><a style="font-weight: 700;" href="./main.html">추천상품</a></li>
-                <li><a style="font-weight: 700;" href="./main.html">신상품</a></li>
+                <li><a style="font-weight: 700;" href="./category_item?category=추천상품">추천상품</a></li>
+                <li><a style="font-weight: 700;" href=".//category_item?category=신상품">신상품</a></li>
                 <li><a href="./category_item?category=A">인형</a></li>
                 <li><a href="./category_item?category=B">돕바/과잠</a></li>
                 <li><a href="./category_item?category=C">포스터</a></li>
