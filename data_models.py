@@ -62,3 +62,21 @@ class Wishlist(db.Model):
     id=Column(db.Integer, primary_key=True)
     user_id=Column(String)
     item_id=Column(String(7))
+
+class Board(db.Model):
+    __tablename__="Board"
+    id=Column(db.Integer, primary_key=True)
+    post_id=Column(String(8))
+    writer_id = Column(String(32))
+    title=Column(String)
+    content=Column(String)
+    data=Column(String)
+
+class Comment(db.Model):
+    __tablename__="Comment"
+    id=Column(db.Integer, primary_key=True)
+    post_id=Column(String(8))
+    comment_id = Column(String(32))
+    commenter_id = Column(String(32))
+    content=Column(String)
+    data=Column(String)

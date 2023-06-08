@@ -1,0 +1,83 @@
+.div_board{
+    display: flex;
+    width:1136px;
+    margin: auto;
+}
+
+.left_section{
+    margin-top: 100px;
+}
+
+.btn_notification{
+    display: block;
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    border-radius: 5px;
+    /* border: 1px solid #838383; */
+    background-color: #0085FF;
+    color: white;
+}
+.btn_notification:hover{
+    cursor: pointer;
+}
+
+.btn_board{
+    display: block;
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    border-radius: 5px;
+    border: 1px solid #0085FF;
+    color: #0085FF;
+    margin-top: 8px;
+}
+
+.btn_board:hover{
+    cursor:pointer;
+}
+.right_section{
+    flex-grow: 1;
+    margin-left: 30px;
+}
+
+.section_title{
+    margin-top: 38px;
+    margin-bottom: 16px;
+}
+
+
+.table_body{
+    border-collapse: collapse;
+    width:100%;
+    border-bottom: 1px solid #838383;
+    border-top: 1px solid #838383;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.table_body td{
+    padding: 10px 30px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+
+
+.btn_container{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn_container button{
+    height:50px;
+    width: 150px;
+    background-color: #0085FF;
+    color: white;
+    margin-bottom: 100px;
+}

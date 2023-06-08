@@ -19,7 +19,7 @@
 .slide{
     position: relative;
     width:100vw;
-    height:350px;
+    /* height:350px; */
     margin-left:-150px;
     overflow: hidden;
 }

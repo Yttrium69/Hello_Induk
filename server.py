@@ -409,10 +409,19 @@ def delete_in_wishlist():
 
 @app.route('/admin_sold_list')
 def sold_list():
-    return render_template("admin_sold_list.html", item=db.session.query(Order).all())
+    return render_template("admin_sold_list.html", item=db.session.query(Order).all())\
+
+
+@app.route('/board')
+def board():
+    return render_template("board.html")
+
+@app.route('/write_board')
+def write_board():
+    return render_template("write_board.html")
 
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)
