@@ -293,7 +293,7 @@ def signin():
     
         if(db.session.query(User).filter(User.user_id==id, User.user_pw==pw).first()!=None):
             session['user_id']=id
-            return redirect(url_for("./gogo_main"))
+            return ("<script>location.href='/'</script>")
     
         return render_template("signin.html", span="아이디와 비밀번호가 일치하지 않습니다.")
     
