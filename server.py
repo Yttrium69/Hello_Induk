@@ -109,8 +109,7 @@ def show_db():
 @app.route('/')
 def gogo_main():
     board_data=db.session.query(Board).all()[:4]
-    return ("GOGOGO")
-    # return render_template('index.html', Wishlist=Wishlist, boards = board_data)
+    return render_template('index.html', Wishlist=Wishlist, boards = board_data)
 
 @app.route('/get_best_item_json', methods=["GET"])
 def get_best_item_data():
@@ -294,7 +293,7 @@ def signin():
     
         if(db.session.query(User).filter(User.user_id==id, User.user_pw==pw).first()!=None):
             session['user_id']=id
-            return redirect(url_for("gogo_main"))
+            return redirect(url_for("./gogo_main"))
     
         return render_template("signin.html", span="아이디와 비밀번호가 일치하지 않습니다.")
     
