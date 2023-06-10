@@ -2,7 +2,8 @@ import os
 from flask import Flask, render_template, jsonify, redirect, url_for
 from flask import request
 from flask import session
-from data_models import User, Item, db, Option, Post, Order, Wishlist
+from data_models import User, Item, db, Option, Post, Order, Wishlist, Board, Comment
+import datetime
 
 now_dir=os.path.abspath(os.path.dirname(__file__))
 
@@ -95,6 +96,10 @@ def show_db():
         db_all=db.session.query(Order).all()
     elif(db_category=="Wishlist"): 
         db_all=db.session.query(Wishlist).all()
+    elif(db_category=="Board"): 
+        db_all=db.session.query(Board).all()
+    elif(db_category=="Comment"): 
+        db_all=db.session.query(Comment).all()
 
     # items = [item.__dict__ for item in db_all]
 
@@ -103,7 +108,8 @@ def show_db():
         
 @app.route('/')
 def gogo_main():
-    return render_template('index.html', Wishlist=Wishlist, wishlist_db=db.session.query(Wishlist))
+    board_data=db.session.query(Board).all()[:4]
+    return render_template('index.html', Wishlist=Wishlist, boards = board_data)
 
 @app.route('/get_best_item_json', methods=["GET"])
 def get_best_item_data():
@@ -414,14 +420,85 @@ def sold_list():
 
 @app.route('/board')
 def board():
-    return render_template("board.html")
+    post_list = db.session.query(Board).all()
+    return render_template("board.html", items = post_list)
 
-@app.route('/write_board')
+@app.route('/write_board', methods=['GET', 'POST'])
 def write_board():
-    return render_template("write_board.html")
+    if request.method=='GET':
+        return render_template("write_board.html")
+    elif request.method == 'POST':
+        writer_id = str(session['user_id'])
+        title = request.form['post_title']
+        content = request.form['post_content']
+        date = str(datetime.date.today())
+
+        new_post = Board(writer_id = writer_id, title = title, content = content, data = date)
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        return ('<script>alert("게시글이 등록되었습니다."); location.href="/board"</script>')
+    
+@app.route('/user_post', methods=['GET', 'POST'])
+def user_post():
+    if request.method == "GET":
+        post_id =  request.args.get("post_id")
+        post = db.session.query(Board).filter(Board.id == post_id).first()
+        comment_list = db.session.query(Comment).filter(Comment.post_id == post_id).all()
+        return render_template("user_post.html", post_item = post, comment_items = comment_list)
+    
+@app.route('/write_comment', methods = ['POST'])
+def write_comment():
+    if request.method == "POST":
+        post_id = request.args.get("post_id")
+        comment = request.form.get("comment_content")
+        commenter_id = session['user_id']
+        data = str(datetime.date.today())
+        
+        new_comment = Comment(post_id = post_id, content = comment, commenter_id = commenter_id, data = data)
+
+        db.session.add(new_comment)
+        db.session.commit()
+
+        return (f'<script>alert("댓글이 등록되었습니다."); location.href="/user_post?post_id={post_id}"</script>')
+    
+
+@app.route('/delete_post', methods = ['GET'])
+def delete_post():
+    post_id = request.args.get("post_id")
+    post_to_delete = db.session.query(Board).filter(Board.id == post_id).first()
+    comments_of_post = db.session.query(Comment).filter(Comment.post_id == post_id).all()
+
+    for comment in comments_of_post:
+        db.session.delete(comment)
+
+    db.session.delete(post_to_delete)
+    db.session.commit()
+    
+    return (f'<script>alert("게시글이 삭제되었습니다."); location.href="/board"</script>')
+
+@app.route('/update_post', methods = ['GET', 'POST'])
+def update_post():
+    if request.method == "GET":
+        post_id = request.args.get("post_id")
+        post_to_update = db.session.query(Board).filter(Board.id == post_id).first()
+        return render_template("update_post.html", post = post_to_update)
+    elif request.method == "POST":
+        post_id = request.form.get("post_id")
+
+        post_to_update = db.session.query(Board).filter(Board.id == post_id).first()
+
+        post_to_update.content = request.form.get("post_content")
+        post_to_update.title = request.form.get("post_title")
+        post_to_update.data = str(datetime.date.today())
+
+        db.session.commit()
+
+        return (f'<script>alert("게시글이 수정되었습니다.");location.href="/user_post?post_id={post_id}"</script>')
 
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

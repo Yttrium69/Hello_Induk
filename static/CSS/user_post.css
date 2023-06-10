@@ -1,0 +1,133 @@
+.div_board{
+    display: flex;
+    width:1136px;
+    margin: auto;
+}
+
+.left_section{
+    margin-top: 100px;
+}
+
+.btn_notification{
+    display: block;
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    border-radius: 5px;
+    /* border: 1px solid #838383; */
+    background-color: #0085FF;
+    color: white;
+}
+.btn_notification:hover{
+    cursor: pointer;
+}
+
+.btn_board{
+    display: block;
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    border-radius: 5px;
+    border: 1px solid #0085FF;
+    color: #0085FF;
+    margin-top: 8px;
+}
+
+.btn_board:hover{
+    cursor:pointer;
+}
+.right_section{
+    flex-grow: 1;
+    margin-left: 30px;
+}
+
+.section_title{
+    display: block;
+    margin-top: 38px;
+    margin-bottom: 20px;
+}
+
+
+.table_body{
+    border-collapse: collapse;
+    width:100%;
+    border-bottom: 1px solid #838383;
+    border-top: 1px solid #838383;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.table_body td{
+    padding: 10px 30px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+
+
+.btn_container{
+    width:100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+}
+
+.btn_container button{
+    height:50px;
+    width: 150px;
+}
+
+.btn_update{
+    background-color: #0085FF;
+    color: white;
+    margin-right: 10px;
+}
+
+.btn_delete{
+    border: 1px solid #FA3737;
+    border-radius: 5px;
+    color: #FA3737;
+}
+
+.color_838383{
+    color: #838383;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.content_area{
+    margin-top: 16px;
+    padding:40px 10px 40px 10px;
+    border-top: #ebebeb 1px solid;
+    border-bottom: #ebebeb 1px solid;
+}
+
+.comment_area{
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+.comment_write{
+    width:100%;
+    height: 120px;
+    background-color: #ebebeb;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    padding: 10px 16px;
+    margin-top: 20px;
+}
+
+.btn_write_comment{
+    border:1px solid #0085FF;
+    color: #0085FF;
+}
+
+.comment{
+    border-top: 1px solid #ebebeb;
+    padding:16px 16px;
+}

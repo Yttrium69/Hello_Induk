@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안뇽인덕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="../static/CSS/nav.css" rel="stylesheet">
+    <link href="../static/CSS/stylesheet.css" rel="stylesheet">
+    <link href="../static/CSS/user_post.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/base.js"></script>
+</head>
+<nav>
+    <div id="comp_header">
+        <div id="component_top-list">
+            <ul>
+                {% if session['user_id']%}
+                <li><a class="size_14" href="./wishlist">{{session['user_id']}}님 안녕하세요!</a></li>
+                <li><a class="size_14" href="./logout">로그아웃</a></li>
+                {% else %}
+                <li><a class="size_14" href="./signin">로그인</a></li>
+                <li><a class="size_14" href="./signup">회원가입</a></li>
+                {% endif %}
+                <li><a class="size_14 color_B5B5B5" href="error">주문배송</a></li>
+                <li><a class="size_14 color_B5B5B5" href="wishlist">장바구니</a></li>
+            </ul>
+        </div>
+        <div id="component_navigator">
+            <ul>
+                <img id="LOGO" onclick="location.href='/'" src="../static/img/icon/안뇽인덕.png" />
+                <li><a style="font-weight: 700;" href="./category_item?category=추천상품">추천상품</a></li>
+                <li><a style="font-weight: 700;" href=".//category_item?category=신상품">신상품</a></li>
+                <li><a href="./category_item?category=A">인형</a></li>
+                <li><a href="./category_item?category=B">돕바/과잠</a></li>
+                <li><a href="./category_item?category=C">포스터</a></li>
+                <li><a href="./category_item?category=D">텀블러/컵/문구류</a></li>
+                <li><a href="./category_item?category=E">모자</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<body>
+    <div class="div_board">
+        <div class="left_section">
+            <div onclick="location.href='/board'" class="btn_notification">공지사항 ></div>
+            <div onclick="location.href='/board'" class="btn_board">유저 게시판 ></div>
+        </div>
+        <div class="right_section">
+            <a class="weight_700 section_title" href="/board">유저 게시판</a>
+            <div class=" post_section">
+                <p class=" weight_700">{{post_item.title}}</p>
+                <p class="color_838383">{{post_item.writer_id}} ㅣ {{post_item.data}}</p>
+                <div class="content_area">
+                    {{post_item.content}}
+                    {% if session['user_id'] == post_item.writer_id %}
+                    <div class="btn_container">
+                        <button onclick="location.href='/update_post?post_id={{post_item.id}}'" class="btn_update">수정</button>
+                        <button onclick="location.href='/delete_post?post_id={{post_item.id}}'" class="btn_delete">삭제</button>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="comment_write_area">
+                    <p style="margin-top: 40px;" class="weight_700">댓글</p>
+                    <form action="/write_comment?post_id={{post_item.id}}" method="post">
+                        <textarea name="comment_content" class="comment_write"placeholder="따뜻한 댓글로 선진적인 인터넷 문화를 만들어 주세요."></textarea>
+                        <div  class="btn_container">
+                            {% if session['user_id'] %}
+                            <button type="submit" class="btn_write_comment">댓글 작성</button>
+                            {% else %}
+                            <button type="button"onclick = "alert('로그인 후 댓글을 작성할 수 있습니다.')" class="btn_write_comment">댓글 작성</button>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+                <div class="comment_area">
+                    {% for comment in comment_items %}
+                    <div class="comment">
+                        <p style="margin-bottom: 6px;" class="weight_700">{{comment.commenter_id}}</p>
+                        <p style="margin-bottom: 16px;">{{comment.content}}</p>
+                        <p style="font-size: 14px;color: #838383;">{{comment.data}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+    <div class="introduction">
+        <p class="size_14">대표자 ㅣ 임은혜</p>
+        <p class="size_14">주소 ㅣ 인천광역시 미추홀구 용현동 168-4</p>
+        <p class="size_14">E-mail ㅣ eemune@naver.com</p>
+    </div>
+    <button onclick="location.href='/adminpage'">A</button>
+    <div class="copyright">
+        <p class="color_838383 size_14">EEMUNE.COPYALLRIGHTRESERVED</p>
+    </div>
+    <img id="gogo_top" src="../static/img/icon/icon_top.svg" onclick="location.href='#'" />
+</footer>
+
+</html>

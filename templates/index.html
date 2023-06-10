@@ -90,25 +90,15 @@
         <div class="notice_section">
             <ul class="notice_list">
                 <li class="notice_header">
-                    <P class="weight_700">게시판</P>
+                    <P class="weight_700">유저 게시판</P>
                     <a href="/board"><p>더보기 ></p></a>
                 </li>
+                {% for post in boards %}
                 <li>
-                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
-                    <p class="color_B5B5B5">2023.05.08</p>
+                    <p><a href="/user_post?post_id={{post.id}}">{{post.title}}</a></p>
+                    <p class="color_B5B5B5">{{post.data}}</p>
                 </li>
-                <li>
-                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
-                    <p class="color_B5B5B5">2023.05.08</p>
-                </li>
-                <li>
-                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
-                    <p class="color_B5B5B5">2023.05.08</p>
-                </li>
-                <li>
-                    <p>우천으로 인한 로젠택배 배송 지연에 대한 안내</p>
-                    <p class="color_B5B5B5">2023.05.08</p>
-                </li>
+                {% endfor %}
             </ul>
             <div class="call_section">
                 <p class="weight_700">고객센터 이용안내</p>

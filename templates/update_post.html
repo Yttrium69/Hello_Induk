@@ -60,10 +60,11 @@
     <div class="right_section">
         <p class="weight_700 section_title">게시글 작성</p>
         <form method="post" class="write_section">
-            <input class="post_title" required name="post_title" placeholder="제목을 입력하세요.">
-            <textarea class="post_content" name="post_content" style="resize:none"  required placeholder="내용을 입력하세요."></textarea>
+            <input name="post_id" value="{{post.id}}" style="display: none;">
+            <input class="post_title" required name="post_title" value = "{{post.title}}">
+            <textarea class="post_content" name="post_content" style="resize:none"  required >{{post.content}}</textarea>
             <div class="btn_container">
-                <button type="submit" onclick="location.href='/write_board'">글쓰기</button>
+                <button type="submit" onclick="location.href='/update_post'">수정하기</button>
             </div>
         </div>
     </div>
