@@ -4,12 +4,14 @@ from flask import request
 from flask import session
 from data_models import User, Item, db, Option, Post, Order, Wishlist, Board, Comment
 import datetime
+from sqlalchemy import desc
 
 now_dir=os.path.abspath(os.path.dirname(__file__))
 
 app=Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+f'{now_dir}/instance/models.db'
+app.secret_key = 'super secret key'
 
 db.init_app(app)
 db.app=app
@@ -108,7 +110,7 @@ def show_db():
         
 @app.route('/')
 def gogo_main():
-    board_data=db.session.query(Board).all()[:4]
+    board_data=db.session.query(Board).order_by(desc(Board.id)).all()[:4]
     return render_template('index.html', Wishlist=Wishlist, boards = board_data)
 
 @app.route('/get_best_item_json', methods=["GET"])
@@ -415,12 +417,12 @@ def delete_in_wishlist():
 
 @app.route('/admin_sold_list')
 def sold_list():
-    return render_template("admin_sold_list.html", item=db.session.query(Order).all())\
+    return render_template("admin_sold_list.html", item=db.session.query(Order).all())
 
 
 @app.route('/board')
 def board():
-    post_list = db.session.query(Board).all()
+    post_list = db.session.query(Board).order_by(desc(Board.id)).all()
     return render_template("board.html", items = post_list)
 
 @app.route('/write_board', methods=['GET', 'POST'])
@@ -438,7 +440,9 @@ def write_board():
         db.session.add(new_post)
         db.session.commit()
 
-        return ('<script>alert("게시글이 등록되었습니다."); location.href="/board"</script>')
+        post_id = db.session.query(Board).order_by(desc(Board.id)).first().id
+
+        return (f'<script>alert("게시글이 등록되었습니다."); location.href="/user_post?post_id={post_id}"</script>')
     
 @app.route('/user_post', methods=['GET', 'POST'])
 def user_post():
@@ -499,6 +503,5 @@ def update_post():
 
 
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host='0.0.0.0', port=5000, debug=False)
