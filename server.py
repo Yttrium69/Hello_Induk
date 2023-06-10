@@ -109,7 +109,8 @@ def show_db():
 @app.route('/')
 def gogo_main():
     board_data=db.session.query(Board).all()[:4]
-    return render_template('index.html', Wishlist=Wishlist, boards = board_data)
+    return ("GOGOGO")
+    # return render_template('index.html', Wishlist=Wishlist, boards = board_data)
 
 @app.route('/get_best_item_json', methods=["GET"])
 def get_best_item_data():
